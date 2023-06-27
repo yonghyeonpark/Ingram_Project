@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <title>title here</title>
+    <title>title</title>
 </head>
 <body>
-<%
-    int num = 10;
-%>
-hello!
-num값은 <%=num%>
-${name}
+ex1
 </body>
 </html>
