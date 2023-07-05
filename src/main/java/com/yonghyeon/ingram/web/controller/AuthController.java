@@ -19,6 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Controller
 public class AuthController {
+
     private final AuthService authService;
 
     @GetMapping("/auth/signin")
@@ -32,7 +33,6 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    // @ResponseBody 사용으로 @Controller이지만 데이터를 응답함
     // 오류가 발생하면 bindingResult(getFieldErrors)에 담음
     public String signup(@Valid SignupRequestDto requestDto, BindingResult bindingResult) {
 

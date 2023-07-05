@@ -1,9 +1,6 @@
 package com.yonghyeon.ingram.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Getter
 @Entity // DB에 테이블 생성
 public class User {
@@ -44,5 +42,14 @@ public class User {
     @PrePersist // DB에 값이 insert 되기 직전에 실행
     public void createDate() {
         this.createDate = LocalDateTime.now();
+    }
+
+    public void update(String password, String name, String phonenum, String gender, String website, String bio) {
+        this.password = password;
+        this.name = name;
+        this.phonenum = phonenum;
+        this.gender = gender;
+        this.website = website;
+        this.bio = bio;
     }
 }

@@ -1,12 +1,9 @@
 package com.yonghyeon.ingram.web.dto.auth;
 
-import com.yonghyeon.ingram.domain.user.User;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -31,12 +28,4 @@ public class SignupRequestDto {
         this.name = name;
     }
 
-    public User toEntity() {
-        return User.builder()
-                .username(username)
-                .password(password)
-                .email(email)
-                .name(name)
-                .build();
-    }
 }

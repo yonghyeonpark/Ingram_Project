@@ -19,12 +19,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable(); // csrf토큰 비활성화
+
         http.authorizeRequests()
                 .antMatchers("/","/user/**","/image/**","/subscribe/**","/comment/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/auth/signin") // 권한없는 페이지로 갔을 때 자동으로 redirection
+                .loginPage("/auth/signin") // GET, 권한없는 페이지로 갔을 때 자동으로 redirection
+                .loginProcessingUrl("/auth/signin") // POST, 스프링 시큐리티가 로그인 프로세스 진행
                 .defaultSuccessUrl("/"); // 로그인이 정상적으로 됐을 때 기본 경로로
 
         return http.build();
