@@ -1,5 +1,8 @@
 // (1) 회원정보 수정
-function update(userId) {
+function update(userId, event) {
+
+    // 폼태그 액션을 멈춤
+    event.preventDefault();
 
     // header에 제이쿼리 설정이 돼있음
     let data = $("#profileUpdate").serialize();
@@ -11,10 +14,15 @@ function update(userId) {
         data:data,
         contentType:"application/x-www-form-urlencoded; charset=utf-8",
         dataType:"json" // json으로 응답을 받음
-    }).done(res=>{ // res에 json data를 javascript로 파싱해서 응답을 받음 => res는 javascript object가 됨
-        console.log("update 성공");
+    }).done(res=>{ // res에 json data를 javascript로 파싱해서 응답을 받음 => res는 javascript object가 됨 / Http상태코드 200번대
+        console.log("update 성공", res);
         location.href=`/user/${userId}`;
-    }).fail(error=>{
-        console.log("update 실패");
+    }).fail(error=>{ // Http상태코드 200번대x
+        if(error.data == null) {
+            alert(error.responseJSON.message);
+        } else {
+            alert(JSON.stringify(error.responseJSON.data));
+        }
+        //console.log("update 실패", error);
     });
 }
