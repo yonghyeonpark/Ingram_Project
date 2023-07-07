@@ -1,5 +1,6 @@
 package com.yonghyeon.ingram.domain.subscribe;
 
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -13,8 +14,8 @@ public class SubscribeRepositoryImpl implements SubscribeRepositoryCustom{
         QSubscribe qSubscribe = QSubscribe.subscribe;
 
         jpaQueryFactory.insert(qSubscribe)
-                .columns(qSubscribe.fromUser, qSubscribe.toUser)
-                .values(fromUserId, toUserId)
+                .columns(qSubscribe.fromUser, qSubscribe.toUser, qSubscribe.createDate)
+                .values(fromUserId, toUserId, Expressions.currentTimestamp())
                 .execute();
     }
 
