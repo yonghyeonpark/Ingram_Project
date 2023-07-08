@@ -1,6 +1,7 @@
 package com.yonghyeon.ingram.service;
 
 import com.yonghyeon.ingram.domain.subscribe.SubscribeRepository;
+import com.yonghyeon.ingram.handler.CustomApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +14,17 @@ public class SubscribeService {
 
     @Transactional
     public void subscribe(Long fromUserId, Long toUserId) {
-        subscribeRepository.mSubscribe(fromUserId, toUserId);
+        try {
+            subscribeRepository.mSubscribe(fromUserId, toUserId);
+        } catch (Exception e) {
+            throw new CustomApiException("이미 팔로우중입니다.");
+        }
+
     }
 
-    /*@Transactional
+    @Transactional
     public void unSubscribe(Long fromUserId, Long toUserId) {
-
-    }*/
+        subscribeRepository.mUnSubscribe(fromUserId, toUserId);
+    }
 
 }

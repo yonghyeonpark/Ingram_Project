@@ -2,6 +2,7 @@ package com.yonghyeon.ingram.service;
 
 import com.yonghyeon.ingram.domain.user.User;
 import com.yonghyeon.ingram.domain.user.UserRepository;
+import com.yonghyeon.ingram.handler.CustomException;
 import com.yonghyeon.ingram.handler.CustomValidationApiException;
 import com.yonghyeon.ingram.web.dto.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,11 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public void userProfile(Long id) {
+        User user = userRepository.findById(id).
+                orElseThrow(() -> new CustomException(""));
+    }
 
     @Transactional
     public User userUpdate(Long id, UserUpdateDto updateDto) {

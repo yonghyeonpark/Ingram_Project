@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +24,10 @@ public class SubscribeApiController {
         return new ResponseEntity<>(new CMResponseDto<>(1L, "구독 성공", null), HttpStatus.OK);
     }
 
-    /*@DeleteMapping("/api/subscribe/{toUserId}")
-    public void unSubscribe(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long id){
-
-    }*/
+    @DeleteMapping("/api/subscribe/{toUserId}")
+    public ResponseEntity<?> unSubscribe(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long toUserId){
+        subscribeService.unSubscribe(principalDetails.getUser().getId(), toUserId);
+        return new ResponseEntity<>(new CMResponseDto<>(1L, "구독 취소", null), HttpStatus.OK);
+    }
 
 }

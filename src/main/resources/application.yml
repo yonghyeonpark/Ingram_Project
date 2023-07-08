@@ -25,7 +25,7 @@ spring:
 
   servlet:
     multipart:
-      enabled: true
+      enabled: true # multipart타입으로 사진을 받음
       max-file-size: 2MB
 
   security:
@@ -33,5 +33,5 @@ spring:
       name: test
       password: 1234   
 
-#file:
-#  path: C:/workspace/springbootwork/upload/
+file:
+  path: C:/Users/박용현/Desktop/ingram/upload/ # 끝에 '/' 가 있어야 뒤에 붙는 파일명을 인식
