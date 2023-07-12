@@ -43,6 +43,9 @@ public class ImageService {
         Image image = imageUploadDto.toEntity(filename, principalDetails.getUser());
         imageRepository.save(image);
 
+        /*System.out.println("===============");
+        System.out.println(image); // 실제로는 image.toString()이 호출
+        System.out.println("===============");*/
     }
 
 }

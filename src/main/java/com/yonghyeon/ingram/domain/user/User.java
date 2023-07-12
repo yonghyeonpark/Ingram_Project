@@ -1,9 +1,12 @@
 package com.yonghyeon.ingram.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.yonghyeon.ingram.domain.image.Image;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -38,6 +41,15 @@ public class User {
     private String role; // 권한 -> ROLE_USER, ROLE_ADMIN
 
     private LocalDateTime createDate;
+
+    // 양방향 매핑
+    // 연관관계의 주인이 아니므로 테이블에 칼럼 생성 제한
+    // User를 select할 때 해당 User id로 등록된 image들을 다 가져옴
+    // @OneToManey는 기본 설정이 fetch = FetchType.LAZY => User를 select할 때 User id에 해당하는 image들을 가져오지 않고 대신 .getImages()함수의 image들이 호출할 때 가져옴
+    // FetchType.EAGER는 User를 select할 때 User id에 해당하는 image들을 가져옴
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"}) // Image의 user필드는 무시하고 파싱(무한 참조 방지)
+    private List<Image> images;
 
     @PrePersist // DB에 값이 insert 되기 직전에 실행
     public void createDate() {

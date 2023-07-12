@@ -77,21 +77,21 @@
   font-size: 20px;
   padding: 8px;
 }
-.profile .profile-right .subscribe {
+.profile .profile-right .follow {
   height: 28px;
   margin-bottom: 5px;
 }
-.profile .profile-right .subscribe ul {
+.profile .profile-right .follow ul {
   display: flex;
 }
-.profile .profile-right .subscribe ul li {
+.profile .profile-right .follow ul li {
   margin-right: 18px;
 }
-.profile .profile-right .subscribe ul li a {
+.profile .profile-right .follow ul li a {
   font-size: 16px;
   color: #262626;
 }
-.profile .profile-right .subscribe ul li a span {
+.profile .profile-right .follow ul li a span {
   font-weight: bold;
   margin-left: 4px;
 }
@@ -308,7 +308,7 @@
   border-bottom: 1px solid #dbdbdb;
 }
 
-.modal-subscribe {
+.modal-follow {
   position: fixed;
   top: 0;
   left: 0;
@@ -319,7 +319,7 @@
   align-items: center;
   justify-content: center;
 }
-.modal-subscribe .subscribe {
+.modal-follow .follow {
   width: 600px;
   height: 500px;
   background-color: #fff;
@@ -327,53 +327,53 @@
   display: flex;
   flex-direction: column;
 }
-.modal-subscribe .subscribe .subscribe-header {
+.modal-follow .follow .follow-header {
   text-align: center;
   line-height: 50px;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
   position: relative;
 }
-.modal-subscribe .subscribe .subscribe-header button {
+.modal-follow .follow .follow-header button {
   position: absolute;
   right: 15px;
   top: 15px;
   background-color: transparent;
   border: 0;
 }
-.modal-subscribe .subscribe .subscribe-header button i {
+.modal-follow .follow .follow-header button i {
   font-size: 20px;
 }
-.modal-subscribe .subscribe .subscribe-list {
+.modal-follow .follow .follow-list {
   overflow: hidden;
   overflow-y: auto;
 }
-.modal-subscribe .subscribe .subscribe-list .subscribe__item {
+.modal-follow .follow .follow-list .follow__item {
   display: flex;
   height: 70px;
   padding: 10px;
 }
-.modal-subscribe .subscribe .subscribe-list .subscribe__item .subscribe__img {
+.modal-follow .follow .follow-list .follow__item .follow__img {
   width: 80px;
   text-align: center;
 }
-.modal-subscribe .subscribe .subscribe-list .subscribe__item .subscribe__img {
+.modal-follow .follow .follow-list .follow__item .follow__img {
   width: 80px;
   text-align: center;
 }
-.modal-subscribe .subscribe .subscribe-list .subscribe__item .subscribe__img img {
+.modal-follow .follow .follow-list .follow__item .follow__img img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
-.modal-subscribe .subscribe .subscribe-list .subscribe__item .subscribe__text {
+.modal-follow .follow .follow-list .follow__item .follow__text {
   padding-top: 5px;
 }
-.modal-subscribe .subscribe .subscribe-list .subscribe__item .subscribe__text h2 {
+.modal-follow .follow .follow-list .follow__item .follow__text h2 {
   font-size: 16px;
   line-height: 50px;
 }
-.modal-subscribe .subscribe .subscribe-list .subscribe__item .subscribe__btn {
+.modal-follow .follow .follow-list .follow__item .follow__btn {
   margin-left: auto;
   display: flex;
   align-items: center;

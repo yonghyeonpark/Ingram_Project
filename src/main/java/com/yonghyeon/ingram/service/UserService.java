@@ -1,9 +1,11 @@
 package com.yonghyeon.ingram.service;
 
+import com.yonghyeon.ingram.domain.follow.FollowRepository;
 import com.yonghyeon.ingram.domain.user.User;
 import com.yonghyeon.ingram.domain.user.UserRepository;
 import com.yonghyeon.ingram.handler.CustomException;
 import com.yonghyeon.ingram.handler.CustomValidationApiException;
+import com.yonghyeon.ingram.web.dto.user.UserProfileDto;
 import com.yonghyeon.ingram.web.dto.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,10 +18,28 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final FollowRepository followRepository;
 
-    public void userProfile(Long id) {
-        User user = userRepository.findById(id).
-                orElseThrow(() -> new CustomException(""));
+    @Transactional(readOnly = true)
+    public UserProfileDto userProfile(Long pageUserId, Long principalId) {
+
+        User user = userRepository.findById(pageUserId).
+                orElseThrow(() -> new CustomException("존재하지 않는 사용자입니다."));
+
+        Long followState = followRepository.mFollowState(principalId, pageUserId);
+        Long followingCount = followRepository.mFollowingCount(pageUserId);
+        Long followerCount = followRepository.mFollowerCount(pageUserId);
+
+        UserProfileDto dto = UserProfileDto.builder()
+                .user(user)
+                .pageOwnerState(pageUserId == principalId)// true면 주인, false는 방문자
+                .imageCount(user.getImages().size())
+                .followerCount(followerCount)
+                .followingCount(followingCount)
+                .followState(followState == 1)
+                .build();
+
+        return dto;
     }
 
     @Transactional

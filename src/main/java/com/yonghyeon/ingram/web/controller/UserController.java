@@ -1,7 +1,10 @@
 package com.yonghyeon.ingram.web.controller;
 
+import com.yonghyeon.ingram.config.auth.PrincipalDetails;
 import com.yonghyeon.ingram.service.UserService;
+import com.yonghyeon.ingram.web.dto.user.UserProfileDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +16,13 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/user/{id}")
-    public String profile(@PathVariable Long id, Model model) {
-        model.addAttribute("images", null);
+
+    @GetMapping("/user/{pageUserId}")
+    public String profile(@PathVariable Long pageUserId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        UserProfileDto dto = userService.userProfile(pageUserId, principalDetails.getUser().getId());
+
+        model.addAttribute("dto", dto);
         return "user/profile";
     }
 

@@ -1,4 +1,4 @@
-package com.yonghyeon.ingram.domain.subscribe;
+package com.yonghyeon.ingram.domain.follow;
 
 import com.yonghyeon.ingram.domain.user.User;
 import lombok.Getter;
@@ -13,13 +13,14 @@ import java.time.LocalDateTime;
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "subscribe_uk",
+                        name = "follow_uk",
                         columnNames = {"fromUser_Id","toUser_Id"}
                 )
         }
 )
+
 @Entity
-public class Subscribe {
+public class Follow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
