@@ -1,5 +1,7 @@
-package com.yonghyeon.ingram.domain.follow;
+package com.yonghyeon.ingram.domain.likes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.yonghyeon.ingram.domain.image.Image;
 import com.yonghyeon.ingram.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,36 +9,36 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+// Maria DB와 MySql에는 Like가 키워드라서 테이블 생성이 안됨
 @NoArgsConstructor
 @Getter
-// 복합키 유니크 제약조건 설정
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "follow_uk",
-                        columnNames = {"fromUser_Id","toUser_Id"}
+                        name = "likes_uk",
+                        columnNames = {"user_Id", "image_Id"}
                 )
         }
 )
 @Entity
-public class Follow {
+public class Likes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 즉시로딩이 기본값이기 때문에 무한참조를 방지해야함
     @ManyToOne
-    private User fromUser;
+    private User user;
 
     @ManyToOne
-    private User toUser;
+    private Image image;
 
     private LocalDateTime createDate;
 
     // 네이티브쿼리를 사용하면 무의미
-    @PrePersist // DB에 값이 insert 되기 직전에 실행
+    @PrePersist
     public void createDate() {
         this.createDate = LocalDateTime.now();
     }
-
 }

@@ -35,10 +35,10 @@
 					<c:otherwise>
 						<c:choose>
 							<c:when test="${dto.followState}">
-								<button class="cta" onclick="togglefollow(${dto.user.id}, this)">팔로우 취소</button>
+								<button class="cta" onclick="toggleFollow(${dto.user.id}, this)">팔로우 취소</button>
 							</c:when>
 							<c:otherwise>
-								<button class="cta blue" onclick="togglefollow(${dto.user.id}, this)">팔로우</button>
+								<button class="cta blue" onclick="toggleFollow(${dto.user.id}, this)">팔로우</button>
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>
@@ -55,7 +55,7 @@
 					</a></li>
 					<li><a href="">팔로워<span>${dto.followerCount}</span>
 					</a></li>
-					<li><a href="javascript:followingInfoModalOpen();">팔로잉<span>${dto.followingCount}</span>
+					<li><a href="javascript:followingInfoModalOpen(${dto.user.id});">팔로잉<span>${dto.followingCount}</span>
 					</a></li>
 				</ul>
 			</div>
@@ -130,33 +130,8 @@
 
 		<div class="follow-list" id="followModalList">
 
-			<div class="follow__item" id="followModalItem-1">
-				<div class="follow__img">
-					<img src="#" onerror="this.src='/images/person.jpeg'"/>
-				</div>
-				<div class="follow__text">
-					<h2>love</h2>
-				</div>
-				<div class="follow__btn">
-						<button class="cta blue" onclick="togglefollowModal(this)">팔로우 취소</button>
-				</div>
-			</div>
-
-
-			<div class="follow__item" id="followModalItem-2">
-				<div class="follow__img">
-					<img src="#" onerror="this.src='/images/person.jpeg'"/>
-				</div>
-				<div class="follow__text">
-					<h2>ssar</h2>
-				</div>
-				<div class="follow__btn">
-					<button class="cta blue" onclick="togglefollowModal(this)">팔로우 취소</button>
-				</div>
-			</div>
 		</div>
 	</div>
-
 </div>
 
 

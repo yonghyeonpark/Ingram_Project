@@ -39,7 +39,6 @@ public class UserApiController {
         return new ResponseEntity<>(new CMResponseDto<>(1L, "팔로잉 리스트 가져오기 성공", followDtos), HttpStatus.OK);
     }
 
-
     @PutMapping("/api/user/{id}")
     public CMResponseDto<?> update(
             @PathVariable Long id,

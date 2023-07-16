@@ -21,7 +21,7 @@ public class FollowApiController {
     @PostMapping("/api/follow/{toUserId}")
     public ResponseEntity<?> follow(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long toUserId){
         followService.follow(principalDetails.getUser().getId(), toUserId);
-        return new ResponseEntity<>(new CMResponseDto<>(1L, "팔로우 성공", null), HttpStatus.OK);
+        return new ResponseEntity<>(new CMResponseDto<>(1L, "팔로우 성공", null), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/follow/{toUserId}")

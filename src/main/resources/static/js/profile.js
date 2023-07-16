@@ -11,7 +11,7 @@
  */
 
 // (1) 유저 프로파일 페이지 팔로우하기, 팔로우취소
-function togglefollow(toUserId, obj) {
+function toggleFollow(toUserId, obj) {
 	if ($(obj).text() === "팔로우 취소") {
 
 		$.ajax({
@@ -42,25 +42,54 @@ function togglefollow(toUserId, obj) {
 }
 
 // (2) 팔로잉 정보 모달 보기
-function followingInfoModalOpen() {
+function followingInfoModalOpen(pageUserId) {
 	$(".modal-follow").css("display", "flex"); // jsp의 클래스
+
+	$.ajax({
+		url:`/api/user/${pageUserId}/follow`,
+		dataType:"json"
+	}).done(res=> {
+		console.log(res.data);
+
+		res.data.forEach((u)=>{
+			let item = getFollowModalItem(u);
+			$("#followModalList").append(item);
+		});
+
+	}).fail(error=> {
+		console.log("팔로우 리스트 불러오기 실패", error);
+	});
 }
 
-function getfollowModalItem() {
+function getFollowModalItem(u) {
 
-}
+	let item=`<div class="follow__item" id="followModalItem-${u.userId}">
+	<div class="follow__img">
+			<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'"/>
+		</div>
+		<div class="follow__text">
+			<h2>${u.username}</h2>
+		</div>
+		<div class="follow__btn">`;
 
-
-// (3) 팔로우자 정보 모달에서 팔로우하기, 팔로우취소
-function togglefollowModal(obj) {
-	if ($(obj).text() === "팔로우취소") {
-		$(obj).text("팔로우하기");
-		$(obj).toggleClass("blue");
-	} else {
-		$(obj).text("팔로우취소");
-		$(obj).toggleClass("blue");
+	if(u.mirrorState == 0) {
+		if(u.followState == 1) {
+			item+=`<button class="cta" onClick="toggleFollow(${u.userId}, this)">팔로우 취소</button>`;
+		}else {
+			item+=`<button class="cta blue" onClick="toggleFollow(${u.userId}, this)">팔로우</button>`;
+		}
 	}
+
+	item+=` 
+		</div>
+	</div>`;
+
+	return item;
 }
+
+
+// (3) 팔로잉 정보 모달에서 팔로우하기, 팔로우취소
+
 
 // (4) 유저 프로파일 사진 변경 (완)
 function profileImageUpload() {
@@ -104,7 +133,7 @@ function modalImage() {
 	$(".modal-image").css("display", "none");
 }
 
-// (8) 팔로우자 정보 모달 닫기
+// (8) 팔로잉 정보 모달 닫기
 function modalClose() {
 	$(".modal-follow").css("display", "none");
 	location.reload();

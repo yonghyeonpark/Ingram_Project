@@ -3,14 +3,17 @@ package com.yonghyeon.ingram.service;
 import com.yonghyeon.ingram.config.auth.PrincipalDetails;
 import com.yonghyeon.ingram.domain.image.Image;
 import com.yonghyeon.ingram.domain.image.ImageRepository;
+import com.yonghyeon.ingram.web.dto.image.ImageSearch;
 import com.yonghyeon.ingram.web.dto.image.ImageUploadDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -46,6 +49,24 @@ public class ImageService {
         /*System.out.println("===============");
         System.out.println(image); // 실제로는 image.toString()이 호출
         System.out.println("===============");*/
+    }
+
+    @Transactional(readOnly = true)
+    public List<Image> getImages(Long principalId, ImageSearch imageSearch) {
+
+        List<Image> images = imageRepository.mgetImages(principalId, imageSearch);
+
+        /*images.forEach((image)-> {
+            image.getLikes().forEach((like)-> {
+
+                if(like.getUser().getId() == principalId) {
+                    image.setLikeState(true);
+                }
+
+            });
+        });
+*/
+        return images;
     }
 
 }
