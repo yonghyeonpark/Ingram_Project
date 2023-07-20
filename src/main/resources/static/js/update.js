@@ -5,7 +5,7 @@ function update(userId, event) {
     event.preventDefault();
 
     // header에 제이쿼리 설정이 돼있음
-    let data = $("#profileUpdate").serialize();
+    let data = $("#profileUpdate").serialize(); // key = value 형태
 
     //ajax로 요청하면 응답을 페이지나 파일이 아닌 데이터로 응답 => ApiController
     $.ajax({

@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    // 오류가 발생하면 bindingResult(getFieldErrors)에 담음
+    // 에러가 발생하면 bindingResult(getFieldErrors)에 담음
     public String signup(@Valid SignupRequestDto requestDto, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
@@ -44,7 +44,7 @@ public class AuthController {
             }
             throw new CustomValidationException("유효성 검사 에러", errorMap);
         } else {
-            User userEntity = authService.join(requestDto);
+            authService.join(requestDto);
             return "auth/signin";
         }
     }

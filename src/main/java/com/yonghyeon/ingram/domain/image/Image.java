@@ -1,6 +1,8 @@
 package com.yonghyeon.ingram.domain.image;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.yonghyeon.ingram.domain.comment.Comment;
 import com.yonghyeon.ingram.domain.likes.Likes;
 import com.yonghyeon.ingram.domain.user.User;
 import lombok.Builder;
@@ -14,13 +16,16 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-@Setter
 @Entity
 public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     private String caption;
     private String postImageUrl; // 사진을 전송 받아서 그 사진을 서버에 특정 폴더에 저장 - DB에 그 저장된 경로를 insert
@@ -31,16 +36,28 @@ public class Image {
 
     private LocalDateTime createDate;
 
-    /*@OneToMany(mappedBy = "image")
-    private List<Likes> likes;*/
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Likes> likes;
+
+    @OrderBy("id DESC")
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Comment> comments;
 
     // javax.persistence => DB에 컬럼 생성 제한
-    /*@Transient
+    @Transient
     private boolean likeState;
+    @Transient
+    private int likeCount;
 
     public void setLikeState(boolean likeState) {
         this.likeState = likeState;
-    }*/
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 
     @PrePersist
     public void createDate() {
@@ -53,4 +70,5 @@ public class Image {
         this.postImageUrl = postImageUrl;
         this.user = user;
     }
+
 }

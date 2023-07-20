@@ -1,47 +1,45 @@
-package com.yonghyeon.ingram.domain.likes;
+package com.yonghyeon.ingram.domain.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.yonghyeon.ingram.domain.image.Image;
 import com.yonghyeon.ingram.domain.user.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-// Maria DB와 MySql에는 Like가 키워드라서 테이블 생성이 안됨
 @NoArgsConstructor
 @Getter
-@Table(
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "likes_uk",
-                        columnNames = {"user_Id", "image_Id"}
-                )
-        }
-)
 @Entity
-public class Likes {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 즉시로딩이 기본값이기 때문에 무한참조를 방지해야함
+    @Column(length = 100, nullable = false)
+    private String content;
+
     @JsonIgnoreProperties({"images"})
     @ManyToOne
     private User user;
 
-    //@JsonManagedReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Image image;
 
     private LocalDateTime createDate;
 
-    // 네이티브쿼리를 사용하면 무의미
     @PrePersist
     public void createDate() {
         this.createDate = LocalDateTime.now();
+    }
+
+    @Builder
+    public Comment(String content, User user, Image image) {
+        this.content = content;
+        this.user = user;
+        this.image = image;
     }
 }

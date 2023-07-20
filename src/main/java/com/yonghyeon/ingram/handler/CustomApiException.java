@@ -2,6 +2,7 @@ package com.yonghyeon.ingram.handler;
 
 import java.util.Map;
 
+// data를 return한 controller에 적용
 public class CustomApiException extends RuntimeException{
 
     // 객체 구분할 때

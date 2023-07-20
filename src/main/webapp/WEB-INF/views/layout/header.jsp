@@ -35,7 +35,11 @@
 </head>
 
 <body>
-	
+
+	<!-- principalId 담아두는 곳-->
+	<input type="hidden" id="principalId" value="${principal.user.id}"/>
+	<!-- js에서 꺼내쓸 수 있음-->
+
 	<header class="header">
 		<div class="container">
 			<a href="/image/story" class="logo">

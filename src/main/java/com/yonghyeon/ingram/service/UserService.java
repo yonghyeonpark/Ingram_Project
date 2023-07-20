@@ -3,14 +3,22 @@ package com.yonghyeon.ingram.service;
 import com.yonghyeon.ingram.domain.follow.FollowRepository;
 import com.yonghyeon.ingram.domain.user.User;
 import com.yonghyeon.ingram.domain.user.UserRepository;
+import com.yonghyeon.ingram.handler.CustomApiException;
 import com.yonghyeon.ingram.handler.CustomException;
 import com.yonghyeon.ingram.handler.CustomValidationApiException;
 import com.yonghyeon.ingram.web.dto.user.UserProfileDto;
 import com.yonghyeon.ingram.web.dto.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -39,6 +47,11 @@ public class UserService {
                 .followState(followState == 1)
                 .build();
 
+        // 좋아요 카운트 추가
+        user.getImages().forEach((image)-> {
+            image.setLikeCount(image.getLikes().size());
+        });
+
         return dto;
     }
 
@@ -56,6 +69,33 @@ public class UserService {
 
         return user;
         // 더티체킹이 일어나서 업데이트가 완료됨
+    }
+
+    @Value("${file.path}") // file.경로명
+    private String uploadFolder;
+    @Transactional
+    public User userProfileUpdate(Long principalId, MultipartFile profileImageFile) {
+
+        // 동일한 파일명이 이미 들어와 있는 파일을 덮는 것을 방지하기위해 UUID 사용(유일성 보장)
+        UUID uuid = UUID.randomUUID();
+        // 극악의 확률로 UUID가 같을 것을 대비해 파일명과 조합
+        String filename = uuid + "_" + profileImageFile.getOriginalFilename();// 실제 파일명
+
+        Path imageFilePath = Paths.get(uploadFolder + filename);
+
+        // 통신(외부에서 data 받아옴), I/O(하드디스크에 write, read) => 예외 발생 가능(읽으려는 파일이 존재하지 않을 때) / 컴파일에러가 아닌 런타임에러 => 따라서 예외를 잡아줘야 함
+        try {
+            Files.write(imageFilePath, profileImageFile.getBytes()); // 파일경로, 실제파일
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        User user = userRepository.findById(principalId)
+                .orElseThrow(() -> new CustomApiException("존재하지 않는 id 입니다."));
+
+        user.setProfileImageUrl(filename);
+
+        return user;
     }
 
 }

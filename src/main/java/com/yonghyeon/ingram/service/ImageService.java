@@ -56,16 +56,18 @@ public class ImageService {
 
         List<Image> images = imageRepository.mgetImages(principalId, imageSearch);
 
-        /*images.forEach((image)-> {
+        images.forEach((image)-> {
+
+            image.setLikeCount(image.getLikes().size());
+
             image.getLikes().forEach((like)-> {
 
                 if(like.getUser().getId() == principalId) {
                     image.setLikeState(true);
                 }
-
             });
         });
-*/
+
         return images;
     }
 

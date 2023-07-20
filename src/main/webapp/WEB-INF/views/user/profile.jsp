@@ -14,10 +14,10 @@
 				onclick="popup('.modal-image')">
 				<form id="userProfileImageForm">
 					<input type="file" name="profileImageFile" style="display: none;"
-						id="userProfileImageInput" />
+						id="userProfileImageInput"/>
 				</form>
 
-				<img class="profile-image" src="#"
+				<img class="profile-image" src="/upload/${dto.user.profileImageUrl}"
 					onerror="this.src='/images/person.jpeg'" id="userProfileImage" />
 			</div>
 		</div>
@@ -85,13 +85,12 @@
 						<a href=""> <img src="/upload/${image.postImageUrl}"/>
 						</a>
 						<div class="comment">
-							<a href="#" class=""> <i class="fas fa-heart"></i><span>0</span>
+							<!--따라서 ImageService와 마찬가지로 UserService에서 likeCount에 값을 집어 넣은 후에 사용-->
+							<a href="#" class=""> <i class="fas fa-heart"></i><span>${image.likeCount}</span>
 							</a>
 						</div>
 					</div>
 				</c:forEach>
-
-
 				<!--아이템들end-->
 			</div>
 		</div>
@@ -111,12 +110,17 @@
 <!--프로필사진 바꾸기 모달-->
 <div class="modal-image" onclick="modalImage()">
 	<div class="modal">
+		<!--페이지의 주인이 아닐 땐 프로필변경 화면 대신 프로필 사진 나오게 설정해보기-->
 		<p>프로필 사진 바꾸기</p>
-		<button onclick="profileImageUpload()">사진 업로드</button>
-		<button onclick="closePopup('.modal-image')">취소</button>
+		<c:choose>
+			<c:when test="${dto.user.id == principal.user.id}">
+				<button onclick="profileImageUpload(${principal.user.id})">사진 업로드</button>
+				<button onclick="closePopup('.modal-image')">취소</button>
+			</c:when>
+		</c:choose>
+
 	</div>
 </div>
-
 <!--프로필사진 바꾸기 모달end-->
 
 <div class="modal-follow">

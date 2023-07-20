@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -62,5 +63,19 @@ public class UserApiController {
             // 따라서 user.getImages도 호출하는데 여기서 다시 image.getUser 다시 user.getImages 이런식으로 무한 반복됨
             return new CMResponseDto<>(1L, "수정 완료", user);
         }
+    }
+
+    @PutMapping("/api/user/{principalId}/profileImageUrl")
+    // caption 필요없이 사진만 받으면 되기 때문에 dto를 받지 않음 / profile.jsp의 폼태그에 있는 input name을 정확히 매칭 시켜야 함
+    public ResponseEntity<?> profileImageUpdate(
+            @PathVariable Long principalId,
+            MultipartFile profileImageFile,
+            @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        User user = userService.userProfileUpdate(principalId, profileImageFile);
+
+        principalDetails.setUser(user);// 세션 변경
+
+        return new ResponseEntity<>(new CMResponseDto<>(1L,"프로필 사진 변경 완료",null), HttpStatus.OK);
     }
 }

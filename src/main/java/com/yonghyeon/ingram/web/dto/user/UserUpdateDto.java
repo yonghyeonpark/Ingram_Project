@@ -21,6 +21,8 @@ public class UserUpdateDto {
     private String phonenum;
     private String gender;
 
+
+
     @Builder
     public UserUpdateDto(String name, String password, String website, String bio, String phonenum, String gender) {
         this.name = name;
