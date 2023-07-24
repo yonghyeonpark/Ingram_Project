@@ -19,7 +19,7 @@ public class ControllerExceptionHandler {
         // 2. Ajax 통신, Android 통신 - CMResponseDto
         if (e.getErrorMap() == null) {
             return Script.back(e.getMessage());
-        } else {
+        }else {
             return Script.back(e.getErrorMap().toString());
         }
     }

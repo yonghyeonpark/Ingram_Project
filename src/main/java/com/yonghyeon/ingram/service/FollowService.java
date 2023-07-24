@@ -27,29 +27,17 @@ public class FollowService {
     @Transactional(readOnly = true)
     public List<FollowDto> followingList(Long principalId, Long pageUserId) {
 
-        QFollow qFollow = QFollow.follow;
-        QUser qUser = QUser.user;
-
-        // 스칼라 서브쿼리 활용
-        return jpaQueryFactory.select(Projections.fields(FollowDto.class,
-                        qUser.id.as("userId"),
-                        qUser.username,
-                        qUser.profileImageUrl,
-                        ExpressionUtils.as(JPAExpressions
-                                .select(qFollow.fromUser.count())
-                                .from(qFollow)
-                                .where(qFollow.fromUser.id.eq(principalId), qFollow.toUser.id.eq(qUser.id)) , "followState"),
-                        ExpressionUtils.as(JPAExpressions
-                                .select(qFollow.fromUser.count())
-                                .from(qFollow)
-                                .where(qUser.id.eq(principalId), qFollow.fromUser.id.eq(pageUserId), qFollow.toUser.id.eq(principalId)),"mirrorState")))
-                .from(qUser)
-                .innerJoin(qFollow)
-                .on(qUser.id.eq(qFollow.toUser.id))
-                .where(qFollow.fromUser.id.eq(pageUserId))
-                .fetch();
+        return followRepository.mFollowingList(principalId, pageUserId);
 
     }
+
+    @Transactional(readOnly = true)
+    public List<FollowDto> followerList(Long principalId, Long pageUserId) {
+
+        return followRepository.mFollowerList(principalId, pageUserId);
+    }
+
+
 
     @Transactional
     public void follow(Long fromUserId, Long toUserId) {

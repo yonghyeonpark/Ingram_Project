@@ -19,11 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 번호 증가 전략이 DB를 따라감
     private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Column(length = 10, unique = true, nullable = false)
+    @Column(length = 100, unique = true, nullable = false)
     private String username;
 
     @Column(nullable = false)

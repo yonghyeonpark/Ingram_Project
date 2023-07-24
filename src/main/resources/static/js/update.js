@@ -20,7 +20,7 @@ function update(userId, event) {
     }).fail(error=>{ // Http상태코드 200번대x
         if(error.data == null) {
             alert(error.responseJSON.message);
-        } else {
+        }else {
             alert(JSON.stringify(error.responseJSON.data));
         }
         //console.log("update 실패", error);

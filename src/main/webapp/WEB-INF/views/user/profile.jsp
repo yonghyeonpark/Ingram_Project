@@ -53,7 +53,7 @@
 				<ul>
 					<li><a href="">게시물<span>${dto.imageCount}</span>
 					</a></li>
-					<li><a href="">팔로워<span>${dto.followerCount}</span>
+					<li><a href="javascript:followerInfoModalOpen(${dto.user.id});">팔로워<span>${dto.followerCount}</span>
 					</a></li>
 					<li><a href="javascript:followingInfoModalOpen(${dto.user.id});">팔로잉<span>${dto.followingCount}</span>
 					</a></li>
@@ -121,12 +121,13 @@
 
 	</div>
 </div>
-<!--프로필사진 바꾸기 모달end-->
+<!--프로필사진 바꾸기 모달 end-->
 
+<!-- 팔로워, 팔로잉 버튼 모달-->
 <div class="modal-follow">
 	<div class="follow">
 		<div class="follow-header">
-			<span>팔로우</span>
+			<span>리스트</span>
 			<button onclick="modalClose()">
 				<i class="fas fa-times"></i>
 			</button>
@@ -137,6 +138,7 @@
 		</div>
 	</div>
 </div>
+<!-- 팔로워, 팔로잉 버튼 모달 end-->
 
 
 <script src="/js/profile.js"></script>

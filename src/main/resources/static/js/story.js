@@ -135,7 +135,7 @@ function toggleLike(imageId) {
 			console.log("에러", error);
 		});
 
-	} else {
+	}else {
 
 		$.ajax({
 			type:"delete",

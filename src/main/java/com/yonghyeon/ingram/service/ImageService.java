@@ -54,7 +54,7 @@ public class ImageService {
     @Transactional(readOnly = true)
     public List<Image> getImages(Long principalId, ImageSearch imageSearch) {
 
-        List<Image> images = imageRepository.mgetImages(principalId, imageSearch);
+        List<Image> images = imageRepository.mGetImages(principalId, imageSearch);
 
         images.forEach((image)-> {
 
@@ -69,6 +69,12 @@ public class ImageService {
         });
 
         return images;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Image> popularImages() {
+
+        return imageRepository.mPopularImages();
     }
 
 }

@@ -32,12 +32,20 @@ public class UserApiController {
     private final UserService userService;
     private final FollowService followService;
 
-    @GetMapping("/api/user/{pageUserId}/follow")
+    @GetMapping("/api/user/{pageUserId}/following")
     public ResponseEntity<?> followingList(@PathVariable Long pageUserId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         List<FollowDto> followDtos = followService.followingList(principalDetails.getUser().getId(), pageUserId);
 
         return new ResponseEntity<>(new CMResponseDto<>(1L, "팔로잉 리스트 가져오기 성공", followDtos), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/user/{pageUserId}/follower")
+    public ResponseEntity<?> followerList(@PathVariable Long pageUserId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        List<FollowDto> followDtos = followService.followerList(principalDetails.getUser().getId(), pageUserId);
+
+        return new ResponseEntity<>(new CMResponseDto<>(1L, "팔로워 리스트 가져오기 성공", followDtos), HttpStatus.OK);
     }
 
     @PutMapping("/api/user/{id}")
@@ -48,21 +56,12 @@ public class UserApiController {
             @AuthenticationPrincipal PrincipalDetails principalDetails /*, Model model*/) {
         //model.addAttribute("principal", principalDetails.getUser());
 
-        if(bindingResult.hasErrors()) {
-            Map<String,String> errorMap = new HashMap<>();
-
-            for(FieldError error : bindingResult.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            throw new CustomValidationApiException("유효성 검사 에러", errorMap);
-        } else {
             User user = userService.userUpdate(id, updateDto);
             principalDetails.setUser(user);
 
             // 응답시에 user 엔터티의 모든 getter 함수가 호출되고 JSON으로 파싱하여 응답
             // 따라서 user.getImages도 호출하는데 여기서 다시 image.getUser 다시 user.getImages 이런식으로 무한 반복됨
             return new CMResponseDto<>(1L, "수정 완료", user);
-        }
     }
 
     @PutMapping("/api/user/{principalId}/profileImageUrl")

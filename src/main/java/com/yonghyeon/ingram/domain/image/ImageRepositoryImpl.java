@@ -1,8 +1,11 @@
 package com.yonghyeon.ingram.domain.image;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.yonghyeon.ingram.domain.follow.QFollow;
+import com.yonghyeon.ingram.domain.likes.QLikes;
 import com.yonghyeon.ingram.web.dto.image.ImageSearch;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +16,7 @@ public class ImageRepositoryImpl implements ImageRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
     @Override
-    public List<Image> mgetImages(Long principalId, ImageSearch imageSearch) {
+    public List<Image> mGetImages(Long principalId, ImageSearch imageSearch) {
 
         QImage qImage = QImage.image;
         QFollow qFollow = QFollow.follow;

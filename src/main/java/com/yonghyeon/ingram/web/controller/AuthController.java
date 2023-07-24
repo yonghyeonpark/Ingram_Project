@@ -24,11 +24,13 @@ public class AuthController {
 
     @GetMapping("/auth/signin")
     public String signinForm() {
+
         return "auth/signin";
     }
 
     @GetMapping("/auth/signup")
     public String signupForm() {
+
         return "auth/signup";
     }
 
@@ -36,16 +38,7 @@ public class AuthController {
     // 에러가 발생하면 bindingResult(getFieldErrors)에 담음
     public String signup(@Valid SignupRequestDto requestDto, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()) {
-            Map<String,String> errorMap = new HashMap<>();
-
-            for(FieldError error : bindingResult.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            throw new CustomValidationException("유효성 검사 에러", errorMap);
-        } else {
             authService.join(requestDto);
             return "auth/signin";
-        }
     }
 }

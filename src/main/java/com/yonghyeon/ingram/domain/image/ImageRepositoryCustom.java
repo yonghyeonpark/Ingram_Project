@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface ImageRepositoryCustom {
 
-    List<Image> mgetImages(Long principalId, ImageSearch imageSearch);
-
+    List<Image> mGetImages(Long principalId, ImageSearch imageSearch);
 }

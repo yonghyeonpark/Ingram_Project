@@ -25,7 +25,7 @@ function toggleFollow(toUserId, obj) {
 			console.log("팔로우 취소 실패", error);
 		});
 
-	} else {
+	}else {
 
 		$.ajax({
 			type:"post",
@@ -46,22 +46,23 @@ function followingInfoModalOpen(pageUserId) {
 	$(".modal-follow").css("display", "flex"); // jsp의 클래스
 
 	$.ajax({
-		url:`/api/user/${pageUserId}/follow`,
+		url:`/api/user/${pageUserId}/following`,
 		dataType:"json"
 	}).done(res=> {
 		console.log(res.data);
 
 		res.data.forEach((u)=>{
-			let item = getFollowModalItem(u);
+			let item = getFollowingModalItem(u);
 			$("#followModalList").append(item);
 		});
 
 	}).fail(error=> {
-		console.log("팔로우 리스트 불러오기 실패", error);
+		console.log("팔로잉 리스트 불러오기 실패", error);
 	});
 }
 
-function getFollowModalItem(u) {
+// (3) 팔로잉 정보 모달에서 팔로우하기, 팔로우취소
+function getFollowingModalItem(u) {
 
 	let item=`<div class="follow__item" id="followModalItem-${u.userId}">
 	<div class="follow__img">
@@ -87,8 +88,45 @@ function getFollowModalItem(u) {
 	return item;
 }
 
+// * 팔로워 정보 모달 보기
+function followerInfoModalOpen(pageUserId) {
+	$(".modal-follow").css("display", "flex");
 
-// (3) 팔로잉 정보 모달에서 팔로우하기, 팔로우취소
+	$.ajax({
+		url:`/api/user/${pageUserId}/follower`,
+		dataType:"json"
+	}).done(res=> {
+		console.log(res.data)
+
+		res.data.forEach((u)=>{
+			let item = getFollowerModalItem(u);
+			$("#followModalList").append(item);
+		});
+
+	}).fail(error=> {
+		console.log("팔로워 리스트 불러오기 실패", error);
+	});
+
+}
+
+function getFollowerModalItem(u) {
+
+	let item=`<div class="follow__item" id="followModalItem-${u.userId}">
+	<div class="follow__img">
+			<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'"/>
+		</div>
+		<div class="follow__text">
+			<h2>${u.username}</h2>
+		</div>
+		<div class="follow__btn">`;
+
+	item+=` 
+		</div>
+	</div>`;
+
+	return item;
+}
+
 
 
 // (4) 유저 프로파일 사진 변경 (완)
