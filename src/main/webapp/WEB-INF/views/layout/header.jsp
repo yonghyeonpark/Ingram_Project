@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<!--세션 정보에 접근이 됨-->
+<!--세션 정보에 접근이 됨 / 컨트롤러에서 모델에 담지 않아도됨-->
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal"/>
 </sec:authorize>

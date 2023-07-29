@@ -39,7 +39,7 @@ function getStoryItem(image) {
 	<div class="sl__item__header">
 		<div>
 			<img class="profile-image" src="/upload/${image.user.profileImageUrl}"
-				onerror="this.src='/images/person.jpeg'" /> <!--사진이 없으면 설정한 사진을 뿌림-->
+				onerror="this.src='/images/person.jpg'" /> <!--사진이 없으면 설정한 사진을 뿌림-->
 		</div>
 		<div>${image.user.username}</div>
 	</div>

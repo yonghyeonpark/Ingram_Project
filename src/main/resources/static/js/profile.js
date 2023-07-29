@@ -1,16 +1,16 @@
 /**
-  1. 유저 프로파일 페이지
-  (1) 유저 프로파일 페이지 팔로우하기, 팔로우취소
+  1. 유저 프로필 페이지
+  (1) 유저 프로필 페이지 팔로우하기, 팔로우취소
   (2) 팔로우자 정보 모달 보기
   (3) 팔로우자 정보 모달에서 팔로우하기, 팔로우취소
   (4) 유저 프로필 사진 변경
   (5) 사용자 정보 메뉴 열기 닫기
   (6) 사용자 정보(회원정보, 로그아웃, 닫기) 모달
-  (7) 사용자 프로파일 이미지 메뉴(사진업로드, 취소) 모달 
+  (7) 사용자 프로필 이미지 메뉴(사진업로드, 취소) 모달
   (8) 팔로우자 정보 모달 닫기
  */
 
-// (1) 유저 프로파일 페이지 팔로우하기, 팔로우취소
+// (1) 유저 프로필 페이지 팔로우하기, 팔로우취소
 function toggleFollow(toUserId, obj) {
 	if ($(obj).text() === "팔로우 취소") {
 
@@ -66,7 +66,7 @@ function getFollowingModalItem(u) {
 
 	let item=`<div class="follow__item" id="followModalItem-${u.userId}">
 	<div class="follow__img">
-			<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'"/>
+			<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpg'"/>
 		</div>
 		<div class="follow__text">
 			<h2>${u.username}</h2>
@@ -113,7 +113,7 @@ function getFollowerModalItem(u) {
 
 	let item=`<div class="follow__item" id="followModalItem-${u.userId}">
 	<div class="follow__img">
-			<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'"/>
+			<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpg'"/>
 		</div>
 		<div class="follow__text">
 			<h2>${u.username}</h2>
@@ -129,7 +129,7 @@ function getFollowerModalItem(u) {
 
 
 
-// (4) 유저 프로파일 사진 변경 (완)
+// (4) 유저 프로필 사진 변경
 function profileImageUpload(principalId) {
 
 	$("#userProfileImageInput").click();
@@ -191,7 +191,7 @@ function modalInfo() {
 	$(".modal-info").css("display", "none");
 }
 
-// (7) 사용자 프로파일 이미지 메뉴(사진업로드, 취소) 모달
+// (7) 사용자 프로필 이미지 메뉴(사진업로드, 취소) 모달
 function modalImage() {
 	$(".modal-image").css("display", "none");
 }

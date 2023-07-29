@@ -6,6 +6,7 @@ import com.yonghyeon.ingram.domain.user.UserRepository;
 import com.yonghyeon.ingram.handler.CustomApiException;
 import com.yonghyeon.ingram.handler.CustomException;
 import com.yonghyeon.ingram.handler.CustomValidationApiException;
+import com.yonghyeon.ingram.web.dto.user.UserPasswordUpdateDto;
 import com.yonghyeon.ingram.web.dto.user.UserProfileDto;
 import com.yonghyeon.ingram.web.dto.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
@@ -62,13 +63,26 @@ public class UserService {
             .orElseThrow(() -> new CustomValidationApiException("존재하지 않는 id입니다.")); // get() - 무조건 찾았음, orElseThrow - 못찾아서 익셉션 발동
 
         // 영속화된 오브젝트를 수정 -> 더티체킹(업데이트 완료)
-        String rawPassword = updateDto.getPassword();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-
-        user.update(encPassword, updateDto.getName(), updateDto.getPhonenum(), updateDto.getGender(), updateDto.getWebsite(), updateDto.getBio());
+        user.update(updateDto.getName(), updateDto.getPhonenum(), updateDto.getGender(), updateDto.getWebsite(), updateDto.getBio());
 
         return user;
         // 더티체킹이 일어나서 업데이트가 완료됨
+    }
+
+    @Transactional
+    public User userPasswordUpdate(Long id, UserPasswordUpdateDto updateDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new CustomValidationApiException("존재하지 않는 id입니다."));
+
+        if(!updateDto.getNewPassword().equals(updateDto.getNewPasswordCheck())) {
+            throw new CustomApiException("비밀번호가 일치하지 않습니다.");
+        }
+            String rawPassword = updateDto.getNewPassword();
+            String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+
+            user.passwordUpdate(encPassword);
+
+            return user;
     }
 
     @Value("${file.path}") // file.경로명

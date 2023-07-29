@@ -114,25 +114,25 @@ button {
 }
 
 .login__horizon .br {
-  width: 40%;
+  width: 35%;
   height: 1px;
   border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
 }
 
 .login__horizon .or {
-  width: 20%;
+  width: 30%;
   text-align: center;
   color: #aaa;
   font-size: 14px;
 }
 
-/* 페이스북로그인 영역 */
-.login__facebook {
+/* 구글 로그인 영역 */
+.login__google {
   padding: 0 40px;
   margin-top: 15px;
 }
-/*페이스북 로그인 버튼*/
-.login__facebook button {
+/*구글 로그인 버튼*/
+.login__google button {
   background-color: #fff;
   width: 100%;
   height: 30px;
@@ -140,8 +140,8 @@ button {
   font-weight: 600;
   font-size: 15px;
 }
-/*페이스북 로그인 색깔*/
-.login__facebook button i,
+/*구글 로그인 색깔*/
+.login__google button i,
 span {
   color: #385185;
 }

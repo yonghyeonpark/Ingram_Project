@@ -34,15 +34,15 @@
                         <!-- 또는 -->
                         <div class="login__horizon">
                             <div class="br"></div>
-                            <div class="or">또는</div>
+                            <div class="or">간편 로그인</div>
                             <div class="br"></div>
                         </div>
                         <!-- 또는end -->
                         
                         <!-- Oauth 소셜로그인 -->
-                        <div class="login__facebook">
+                        <div class="login__google">
                             <button onclick="javascript:location.href='/oauth2/authorization/google'">
-                                <i class="fab fa-facebook-square"></i>
+                                <i class="fab fa-google"></i>
                                 <span>Google로 로그인</span>
                             </button>
                         </div>

@@ -26,7 +26,7 @@ public class ImageApiController {
 
         List<Image> images = imageService.getImages(principalDetails.getUser().getId(), imageSearch);
 
-        return new ResponseEntity<>(new CMResponseDto<>(1L, "성공", images), HttpStatus.OK);
+        return new ResponseEntity<>(new CMResponseDto<>(1L, "이미지 리스트 가져오기 성공", images), HttpStatus.OK);
     }
 
     @PostMapping("/api/image/{imageId}/likes")
@@ -34,7 +34,7 @@ public class ImageApiController {
 
         likesService.likes(principalDetails.getUser().getId(), imageId);
 
-        return new ResponseEntity<>(new CMResponseDto<>(1L, "성공", null), HttpStatus.CREATED); // 201 코드
+        return new ResponseEntity<>(new CMResponseDto<>(1L, "이미지 좋아요 성공", null), HttpStatus.CREATED); // 201 코드
     }
 
     @DeleteMapping("/api/image/{imageId}/likes")
@@ -42,7 +42,7 @@ public class ImageApiController {
 
         likesService.unLikes(principalDetails.getUser().getId(), imageId);
 
-        return new ResponseEntity<>(new CMResponseDto<>(1L, "성공", null), HttpStatus.OK);
+        return new ResponseEntity<>(new CMResponseDto<>(1L, "이미지 좋아요 취소 성공", null), HttpStatus.OK);
     }
 
 }

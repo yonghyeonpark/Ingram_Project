@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @ControllerAdvice // 모든 Exception을 낚아채옴
 public class ControllerExceptionHandler {
 
     // javascript를 리턴
-    @ExceptionHandler(CustomValidationException.class) // RuntimeException이 발동하는 모든 Exception을 감지
+    @ExceptionHandler(CustomValidationException.class) // CustomValidationException(RuntimeException)이 발동하는 모든 Exception을 감지
     public String validationException(CustomValidationException e) {
         // 1. 클라이언트에게 응답할 때는 Script
         // 2. Ajax 통신, Android 통신 - CMResponseDto
@@ -24,7 +26,7 @@ public class ControllerExceptionHandler {
         }
     }
 
-    @ExceptionHandler(CustomException.class) // RuntimeException이 발동하는 모든 Exception을 감지
+    @ExceptionHandler(CustomException.class)
     public String Exception(CustomException e) {
         // 1. 클라이언트에게 응답할 때는 Script
         // 2. Ajax 통신, Android 통신 - CMResponseDto

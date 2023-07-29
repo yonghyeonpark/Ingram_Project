@@ -43,7 +43,6 @@ public class ValidationAdvice {
                     // throw를 하면 if문 밖의 코드는 무효화
                     throw new CustomValidationApiException("유효성 검사 실패", errorMap);
                 }
-
             }
             //System.out.println(arg); // toString을 호출하기 때문에 무한참조됨
         }
@@ -68,6 +67,7 @@ public class ValidationAdvice {
                     for(FieldError error : bindingResult.getFieldErrors()) {
                         errorMap.put(error.getField(), error.getDefaultMessage());
                     }
+                    // throw를 하면 if문 밖의 코드는 무효화
                     throw new CustomValidationException("유효성 검사 실패", errorMap);
                 }
             }

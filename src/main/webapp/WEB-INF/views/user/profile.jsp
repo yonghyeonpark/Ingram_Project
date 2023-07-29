@@ -18,7 +18,7 @@
 				</form>
 
 				<img class="profile-image" src="/upload/${dto.user.profileImageUrl}"
-					onerror="this.src='/images/person.jpeg'" id="userProfileImage" />
+					onerror="this.src='/images/person.jpg'" id="userProfileImage" />
 			</div>
 		</div>
 		<!--유저이미지end-->
@@ -100,7 +100,8 @@
 <!--로그아웃, 회원정보변경 모달-->
 <div class="modal-info" onclick="modalInfo()">
 	<div class="modal">
-		<button onclick="location.href='/user/1/update'">회원정보 변경</button>
+		<button onclick="location.href='/user/${dto.user.id}/update'">회원정보 변경</button>
+		<button onclick="location.href='/user/${dto.user.id}/passwordUpdate'">비밀번호 변경</button>
 		<button onclick="location.href='/logout'">로그아웃</button>
 		<button onclick="closePopup('.modal-info')">취소</button>
 	</div>
@@ -111,12 +112,16 @@
 <div class="modal-image" onclick="modalImage()">
 	<div class="modal">
 		<!--페이지의 주인이 아닐 땐 프로필변경 화면 대신 프로필 사진 나오게 설정해보기-->
-		<p>프로필 사진 바꾸기</p>
 		<c:choose>
 			<c:when test="${dto.user.id == principal.user.id}">
+				<p>프로필 사진 바꾸기</p>
 				<button onclick="profileImageUpload(${principal.user.id})">사진 업로드</button>
 				<button onclick="closePopup('.modal-image')">취소</button>
 			</c:when>
+			<c:otherwise>
+				<img class="profile-image" src="/upload/${dto.user.profileImageUrl}"
+						   onerror="this.src='/images/person.jpg'" id="userProfileImage2" />
+			</c:otherwise>
 		</c:choose>
 
 	</div>

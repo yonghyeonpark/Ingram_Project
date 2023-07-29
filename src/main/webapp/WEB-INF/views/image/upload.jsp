@@ -21,7 +21,7 @@
                 <form class="upload-form" action = "/image" method="post" enctype="multipart/form-data"> <!--전송하려는 데이터의 타입이 다르므로 enctype을 저렇게 설정-->
                     <input  type="file" name="file" onchange="imageChoose(this)"/> <!--파일 데이터-->
                     <div class="upload-img">
-                        <img src="/images/person.jpeg" alt="" id="imageUploadPreview" />
+                        <img src="/images/person.jpg" alt="" id="imageUploadPreview" />
                     </div>
                     
                     <!--사진설명 + 업로드버튼-->

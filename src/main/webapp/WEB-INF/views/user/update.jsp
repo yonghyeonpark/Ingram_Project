@@ -13,7 +13,7 @@
 			<!--프로필셋팅 아이디영역-->
 			<div class="content-item__01">
 				<div class="item__img">
-					<img src="#" onerror="this.src='/images/person.jpeg'" />
+					<img src="#" onerror="this.src='/images/person.jpg'" />
 				</div>
 				<div class="item__username">
 					<h2>${principal.user.username}</h2>
@@ -27,7 +27,9 @@
 					<div class="item__title">이름</div>
 					<div class="item__input">
 						<input type="text" name="name" placeholder="이름"
-							value="${principal.user.name}"  />
+							   required
+							   oninvalid="this.setCustomValidity('이름을 입력하세요.')"
+							value="${principal.user.name}" />
 					</div>
 				</div>
 				<div class="content-item__03">
@@ -35,12 +37,6 @@
 					<div class="item__input">
 						<input type="text" name="username" placeholder="유저네임"
 							value="${principal.user.username}" readonly="readonly" />
-					</div>
-				</div>
-				<div class="content-item__04">
-					<div class="item__title">패스워드</div>
-					<div class="item__input">
-						<input type="password" name="password" placeholder="패스워드" required="required"/>
 					</div>
 				</div>
 				<div class="content-item__05">

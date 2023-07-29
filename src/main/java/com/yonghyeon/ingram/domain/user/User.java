@@ -60,13 +60,28 @@ public class User {
         this.createDate = LocalDateTime.now();
     }
 
-    public void update(String password, String name, String phonenum, String gender, String website, String bio) {
+    @Builder
+    public User(String username, String password, String email, String name, String phonenum, String gender, String website, String bio) {
+        this.username = username;
         this.password = password;
+        this.email = email;
         this.name = name;
         this.phonenum = phonenum;
         this.gender = gender;
         this.website = website;
         this.bio = bio;
+    }
+
+    public void update(String name, String phonenum, String gender, String website, String bio) {
+        this.name = name;
+        this.phonenum = phonenum;
+        this.gender = gender;
+        this.website = website;
+        this.bio = bio;
+    }
+
+    public void passwordUpdate(String password) {
+        this.password = password;
     }
 
 }
