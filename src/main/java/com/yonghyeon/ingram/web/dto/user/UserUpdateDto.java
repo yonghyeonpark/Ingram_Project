@@ -3,6 +3,7 @@ package com.yonghyeon.ingram.web.dto.user;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
@@ -11,6 +12,8 @@ public class UserUpdateDto {
 
     @NotBlank
     private String name;
+    @NotBlank
+    private String username;
 
     private String website;
     private String bio;

@@ -86,7 +86,7 @@
   flex-direction: column;
 }
 
-/*좋아요 버튼영역*/
+/*좋아요, 북마크 버튼영역*/
 .main
   .container
   .story-list
@@ -96,8 +96,17 @@
   height: 40px;
   padding: 5px 0;      
 }
+.main
+.container
+.story-list
+.story-list__item
+.sl__item__contents
+.sl__item__contents__icon2 {
+  height: 40px;
+  padding: 5px 0;
+}
 
-/*좋아요 실제 버튼*/
+/*좋아요, 북마크 실제 버튼*/
 .main
   .container
   .story-list
@@ -109,6 +118,21 @@
   width: 40px;
   font-size: 25px;
   
+  border: 0;
+  cursor: pointer;
+}
+
+.main
+.container
+.story-list
+.story-list__item
+.sl__item__contents
+.sl__item__contents__icon2
+button {
+  background-color: transparent;
+  width: 40px;
+  font-size: 25px;
+
   border: 0;
   cursor: pointer;
 }
@@ -212,6 +236,17 @@
   button:first-child
   .active {
   color: red;
+}
+
+.main
+.container
+.story-list
+.story-list__item
+.sl__item__contents
+.sl__item__contents__icon2
+button:first-child
+.active {
+  color: black;
 }
 
 .profile-image {

@@ -23,6 +23,13 @@
 
             <!--비밀번호 수정-->
             <form id="passwordUpdate" onsubmit="passwordUpdate(${principal.user.id}, event)">
+                <div class="content-item__01">
+                    <div class="item__title">현재 비밀번호 확인</div>
+                    <div class="item__input">
+                        <input type="password" name="nowPasswordCheck" placeholder="현재 비밀번호 확인"
+                               required ="required" />
+                    </div>
+                </div>
                 <div class="content-item__02">
                     <div class="item__title">새 비밀번호 입력</div>
                     <div class="item__input">

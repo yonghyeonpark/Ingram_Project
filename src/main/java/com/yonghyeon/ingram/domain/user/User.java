@@ -42,7 +42,7 @@ public class User {
         this.profileImageUrl = profileImageUrl;
     }
 
-    private String role; // 권한 -> ROLE_USER, ROLE_ADMIN
+    private String role; // 권한 -> ROLE_USER, ROLE_GOOGLE_USER
 
     private LocalDateTime createDate;
 
@@ -72,8 +72,9 @@ public class User {
         this.bio = bio;
     }
 
-    public void update(String name, String phonenum, String gender, String website, String bio) {
+    public void update(String name, String username, String phonenum, String gender, String website, String bio) {
         this.name = name;
+        this.username = username;
         this.phonenum = phonenum;
         this.gender = gender;
         this.website = website;

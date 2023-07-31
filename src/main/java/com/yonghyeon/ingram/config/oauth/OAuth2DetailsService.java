@@ -46,7 +46,7 @@ public class OAuth2DetailsService extends DefaultOAuth2UserService {
                     .password(password)
                     .email(email)
                     .name(name)
-                    //.role("ROLE_USER")
+                    .role("ROLE_GOOGLE_USER")
                     .build();
 
             return new PrincipalDetails(userRepository.save(user), userInfo);

@@ -2,6 +2,7 @@ package com.yonghyeon.ingram.domain.image;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.yonghyeon.ingram.domain.bookmark.Bookmark;
 import com.yonghyeon.ingram.domain.comment.Comment;
 import com.yonghyeon.ingram.domain.likes.Likes;
 import com.yonghyeon.ingram.domain.user.User;
@@ -45,11 +46,18 @@ public class Image {
     @OneToMany(mappedBy = "image")
     private List<Comment> comments;
 
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Bookmark> bookmarks;
+
     // javax.persistence => DB에 컬럼 생성 제한
     @Transient
     private boolean likeState;
     @Transient
     private int likeCount;
+
+    @Transient
+    private boolean bookmarkState;
 
     public void setLikeState(boolean likeState) {
         this.likeState = likeState;
@@ -57,6 +65,10 @@ public class Image {
 
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public void setBookmarkState(boolean bookmarkState) {
+        this.bookmarkState = bookmarkState;
     }
 
     @PrePersist

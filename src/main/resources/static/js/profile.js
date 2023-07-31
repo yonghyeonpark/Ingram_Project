@@ -19,6 +19,11 @@ function toggleFollow(toUserId, obj) {
 			url:"/api/follow/"+toUserId,
 			dataType:"json"
 		}).done(res=> {
+
+			let followerCountStr = $(`#follower-count`).text();
+			let followerCount = Number(followerCountStr) - 1;
+			$(`#follower-count`).text(followerCount);
+
 			$(obj).text("팔로우");
 			$(obj).toggleClass("blue");
 		}).fail(error=> {
@@ -32,6 +37,11 @@ function toggleFollow(toUserId, obj) {
 			url:"/api/follow/"+toUserId,
 			dataType:"json"
 		}).done(res=> {
+
+			let followerCountStr = $(`#follower-count`).text();
+			let followerCount = Number(followerCountStr) + 1;
+			$(`#follower-count`).text(followerCount);
+
 			$(obj).text("팔로우 취소");
 			$(obj).toggleClass("blue");
 		}).fail(error=> {

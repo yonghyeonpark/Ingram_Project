@@ -66,6 +66,12 @@ public class ImageService {
                     image.setLikeState(true);
                 }
             });
+            image.getBookmarks().forEach((bookmark)-> {
+
+                if(bookmark.getUser().getId() == principalId) {
+                    image.setBookmarkState(true);
+                }
+            });
         });
 
         return images;

@@ -37,11 +37,12 @@ function getStoryItem(image) {
 
 	let item=`<div class="story-list__item">
 	<div class="sl__item__header">
-		<div>
+		<div><a href="/user/${image.user.id}">
 			<img class="profile-image" src="/upload/${image.user.profileImageUrl}"
-				onerror="this.src='/images/person.jpg'" /> <!--사진이 없으면 설정한 사진을 뿌림-->
+				onerror="this.src='/images/person.jpg'" /> <!--사진이 없으면 설정한 사진을 뿌림--></a>
 		</div>
-		<div>${image.user.username}</div>
+		<div><a href="/user/${image.user.id}">${image.user.username}</a>
+		</div>
 	</div>
 
 	<div class="sl__item__img">
@@ -57,11 +58,24 @@ function getStoryItem(image) {
 			}else {
 				item +=`<i class="far fa-heart" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>`;
 			}
-				
+
 		item +=`
 			</button>
 		</div>
+		
+		<div class="sl__item__contents__icon2">
+			<button>`;
 
+			if(image.bookmarkState) {
+				item +=`<i class="fas fa-bookmark active" id="storyBookmarkIcon-${image.id}" onclick="toggleBookmark(${image.id})"></i>`;
+			}else {
+				item +=`<i class="far fa-bookmark" id="storyBookmarkIcon-${image.id}" onclick="toggleBookmark(${image.id})"></i>`;
+			}
+
+		item +=`
+			</button>
+		</div>
+		
 		<span class="like"><b id="storyLikeCount-${image.id}">${image.likeCount}</b>likes</span>
 
 		<div class="sl__item__contents__content">
@@ -113,7 +127,7 @@ $(window).scroll(() => {
 });
 
 
-// (3) 좋아요, 좋아요 취소
+// (3-1) 좋아요, 좋아요 취소
 function toggleLike(imageId) {
 	let likeIcon = $(`#storyLikeIcon-${imageId}`); // #을 사용할 땐 쌍따옴표(")가 아닌 백틱(`)으로 처리
 	if (likeIcon.hasClass("far")) { // 좋아요 누르기 전
@@ -150,6 +164,42 @@ function toggleLike(imageId) {
 			likeIcon.removeClass("fas");
 			likeIcon.removeClass("active");
 			likeIcon.addClass("far");
+		}).fail(error=>{
+			console.log("에러", error);
+		});
+
+	}
+}
+
+// (3-2) 북마크, 북마크 취소
+function toggleBookmark(imageId) {
+	let bookmarkIcon = $(`#storyBookmarkIcon-${imageId}`); // #을 사용할 땐 쌍따옴표(")가 아닌 백틱(`)으로 처리
+	if (bookmarkIcon.hasClass("far")) { // 좋아요 누르기 전
+
+		$.ajax({
+			type:"post",
+			url:`/api/image/${imageId}/bookmark`,
+			dataType:"json"
+		}).done(res=>{
+
+			bookmarkIcon.addClass("fas");
+			bookmarkIcon.addClass("active");
+			bookmarkIcon.removeClass("far");
+		}).fail(error=>{
+			console.log("에러", error);
+		});
+
+	}else {
+
+		$.ajax({
+			type:"delete",
+			url:`/api/image/${imageId}/bookmark`,
+			dataType:"json"
+		}).done(res=>{
+
+			bookmarkIcon.removeClass("fas");
+			bookmarkIcon.removeClass("active");
+			bookmarkIcon.addClass("far");
 		}).fail(error=>{
 			console.log("에러", error);
 		});

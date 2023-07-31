@@ -4,6 +4,7 @@ import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.yonghyeon.ingram.domain.bookmark.QBookmark;
 import com.yonghyeon.ingram.domain.follow.QFollow;
 import com.yonghyeon.ingram.domain.likes.QLikes;
 import com.yonghyeon.ingram.web.dto.image.ImageSearch;
@@ -32,4 +33,5 @@ public class ImageRepositoryImpl implements ImageRepositoryCustom {
                 .offset(imageSearch.getOffset())
                 .fetch();
     }
+
 }

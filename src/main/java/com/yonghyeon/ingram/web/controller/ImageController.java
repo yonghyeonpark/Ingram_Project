@@ -3,6 +3,7 @@ package com.yonghyeon.ingram.web.controller;
 import com.yonghyeon.ingram.config.auth.PrincipalDetails;
 import com.yonghyeon.ingram.domain.image.Image;
 import com.yonghyeon.ingram.handler.CustomValidationException;
+import com.yonghyeon.ingram.service.BookmarkService;
 import com.yonghyeon.ingram.service.ImageService;
 import com.yonghyeon.ingram.web.dto.image.ImageUploadDto;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ImageController {
 
     private final ImageService imageService;
+    private final BookmarkService bookmarkService;
 
     @GetMapping({"/", "/image/story"})
     public String story() {
@@ -33,6 +35,15 @@ public class ImageController {
         model.addAttribute("images",images);
 
         return "image/popular";
+    }
+
+    @GetMapping({ "/image/bookmark"})
+    public String bookmark(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+
+        List<Image> bookmarkImages = bookmarkService.bookmarkImages(principalDetails.getUser().getId());
+        model.addAttribute("images",bookmarkImages);
+
+        return "image/bookmark";
     }
 
     @GetMapping({ "/image/upload"})

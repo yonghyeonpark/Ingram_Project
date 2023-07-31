@@ -17,13 +17,16 @@ public class UserProfileDto {
     private Long followingCount;
     private Long followerCount;
 
+    private boolean userState;
+
     @Builder
-    public UserProfileDto(boolean pageOwnerState, User user, int imageCount, boolean followState, Long followingCount, Long followerCount) {
+    public UserProfileDto(boolean pageOwnerState, User user, int imageCount, boolean followState, Long followingCount, Long followerCount, boolean userState) {
         PageOwnerState = pageOwnerState;
         this.user = user;
         this.imageCount = imageCount;
         this.followState = followState;
         this.followingCount = followingCount;
         this.followerCount = followerCount;
+        this.userState = userState;
     }
 }

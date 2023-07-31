@@ -53,7 +53,7 @@
 				<ul>
 					<li><a href="">게시물<span>${dto.imageCount}</span>
 					</a></li>
-					<li><a href="javascript:followerInfoModalOpen(${dto.user.id});">팔로워<span>${dto.followerCount}</span>
+					<li><a href="javascript:followerInfoModalOpen(${dto.user.id});">팔로워<span id="follower-count">${dto.followerCount}</span>
 					</a></li>
 					<li><a href="javascript:followingInfoModalOpen(${dto.user.id});">팔로잉<span>${dto.followingCount}</span>
 					</a></li>
@@ -97,16 +97,27 @@
 	</div>
 </section>
 
-<!--로그아웃, 회원정보변경 모달-->
+<!--로그아웃, 회원정보, 비밀번호 변경 모달-->
 <div class="modal-info" onclick="modalInfo()">
 	<div class="modal">
-		<button onclick="location.href='/user/${dto.user.id}/update'">회원정보 변경</button>
-		<button onclick="location.href='/user/${dto.user.id}/passwordUpdate'">비밀번호 변경</button>
-		<button onclick="location.href='/logout'">로그아웃</button>
-		<button onclick="closePopup('.modal-info')">취소</button>
+
+		<c:choose>
+			<c:when test="${dto.userState}">
+				<button onclick="location.href='/user/${dto.user.id}/update'">회원정보 변경</button>
+				<button onclick="location.href='/user/${dto.user.id}/passwordUpdate'">비밀번호 변경</button>
+				<button onclick="location.href='/logout'">로그아웃</button>
+				<button onclick="closePopup('.modal-info')">취소</button>
+			</c:when>
+			<c:otherwise>
+				<button onclick="location.href='/user/${dto.user.id}/update'">회원정보 변경</button>
+				<button onclick="location.href='/logout'">로그아웃</button>
+				<button onclick="closePopup('.modal-info')">취소</button>
+			</c:otherwise>
+		</c:choose>
+
 	</div>
 </div>
-<!--로그아웃, 회원정보변경 모달 end-->
+<!--로그아웃, 회원정보, 비밀번호 변경 모달 end-->
 
 <!--프로필사진 바꾸기 모달-->
 <div class="modal-image" onclick="modalImage()">

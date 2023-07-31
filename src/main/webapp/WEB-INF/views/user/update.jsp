@@ -27,8 +27,6 @@
 					<div class="item__title">이름</div>
 					<div class="item__input">
 						<input type="text" name="name" placeholder="이름"
-							   required
-							   oninvalid="this.setCustomValidity('이름을 입력하세요.')"
 							value="${principal.user.name}" />
 					</div>
 				</div>
@@ -36,7 +34,7 @@
 					<div class="item__title">유저네임</div>
 					<div class="item__input">
 						<input type="text" name="username" placeholder="유저네임"
-							value="${principal.user.username}" readonly="readonly" />
+							value="${principal.user.username}" />
 					</div>
 				</div>
 				<div class="content-item__05">

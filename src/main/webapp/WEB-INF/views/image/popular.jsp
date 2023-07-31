@@ -6,7 +6,7 @@
 <main class="popular">
 	<div class="exploreContainer">
 
-		<!--인기게시글 갤러리(GRID배치)-->
+		<!--인기게시글 갤러리(Grid배치)-->
 		<div class="popular-gallery">
 
 			<c:forEach var="image" items="${images}">
