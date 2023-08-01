@@ -36,7 +36,7 @@ public class OAuth2DetailsService extends DefaultOAuth2UserService {
         String email = (String)userInfo.get("email");
         String name = (String)userInfo.get("name");
 
-        User findUser = userRepository.findByUsername(username);
+        User findUser = userRepository.findByEmail(email);
 
         // 이미 가입한 유저 구별하기
         if(findUser == null) {

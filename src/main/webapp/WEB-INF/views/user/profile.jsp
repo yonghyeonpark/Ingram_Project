@@ -51,7 +51,7 @@
 
 			<div class="follow">
 				<ul>
-					<li><a href="">게시물<span>${dto.imageCount}</span>
+					<li><a>게시물<span>${dto.imageCount}</span>
 					</a></li>
 					<li><a href="javascript:followerInfoModalOpen(${dto.user.id});">팔로워<span id="follower-count">${dto.followerCount}</span>
 					</a></li>
