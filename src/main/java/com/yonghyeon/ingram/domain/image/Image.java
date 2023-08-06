@@ -1,6 +1,6 @@
 package com.yonghyeon.ingram.domain.image;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.yonghyeon.ingram.domain.bookmark.Bookmark;
 import com.yonghyeon.ingram.domain.comment.Comment;
@@ -9,7 +9,6 @@ import com.yonghyeon.ingram.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

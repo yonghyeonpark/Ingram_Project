@@ -23,14 +23,14 @@
 		</div>
 		<!--유저이미지end-->
 
-		<!--유저정보 및 사진등록 팔로우하기-->
+		<!--유저정보 및 게시물 등록, 팔로우하기-->
 		<div class="profile-right">
 			<div class="name-group">
 				<h2>${dto.user.name}</h2>
 
 				<c:choose>
 					<c:when test="${dto.pageOwnerState}">
-						<button class="cta" onclick="location.href='/image/upload'">사진등록</button>
+						<button class="cta" onclick="location.href='/image/upload'">게시물 등록</button>
 					</c:when>
 					<c:otherwise>
 						<c:choose>
@@ -44,9 +44,13 @@
 					</c:otherwise>
 				</c:choose>
 
-				<button class="modi" onclick="popup('.modal-info')">
-					<i class="fas fa-cog"></i>
-				</button>
+				<c:choose>
+					<c:when test="${dto.pageOwnerState}">
+						<button class="modi" onclick="popup('.modal-info')">
+							<i class="fas fa-cog"></i>
+						</button>
+					</c:when>
+				</c:choose>
 			</div>
 
 			<div class="follow">
@@ -64,7 +68,7 @@
 				<h4>${dto.user.website}</h4>
 			</div>
 		</div>
-		<!--유저정보 및 사진등록 팔로우하기-->
+		<!--유저정보 및 게시물 등록, 팔로우하기-->
 
 	</div>
 </section>

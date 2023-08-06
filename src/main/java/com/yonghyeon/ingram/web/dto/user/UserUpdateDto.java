@@ -14,6 +14,8 @@ public class UserUpdateDto {
     private String name;
     @NotBlank
     private String username;
+    @NotBlank
+    private String email;
 
     private String website;
     private String bio;

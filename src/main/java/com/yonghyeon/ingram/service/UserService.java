@@ -63,12 +63,16 @@ public class UserService {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new CustomValidationApiException("존재하지 않는 id입니다.")); // get() - 무조건 찾았음, orElseThrow - 못찾아서 익셉션 발동
 
-        if(userRepository.findByUsername(updateDto.getUsername())!=null) {
+        if(userRepository.findByUsername(updateDto.getUsername())!=null & !user.getUsername().equals(updateDto.getUsername())) {
             throw new CustomApiException("이미 존재하는 유저네임 입니다.");
         }
 
+        if(userRepository.findByEmail(updateDto.getEmail())!=null & !user.getEmail().equals(updateDto.getEmail())) {
+            throw new CustomApiException("이미 사용중인 이메일 입니다.");
+        }
+
         // 영속화된 오브젝트를 수정 -> 더티체킹(업데이트 완료)
-        user.update(updateDto.getName(), updateDto.getUsername(), updateDto.getPhonenum(), updateDto.getGender(), updateDto.getWebsite(), updateDto.getBio());
+        user.update(updateDto.getName(), updateDto.getUsername(), updateDto.getEmail(), updateDto.getPhonenum(), updateDto.getGender(), updateDto.getWebsite(), updateDto.getBio());
 
         return user;
         // 더티체킹이 일어나서 업데이트가 완료됨
@@ -79,12 +83,18 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new CustomValidationApiException("존재하지 않는 id입니다."));
 
-        if(!updateDto.getNewPassword().equals(updateDto.getNewPasswordCheck())) {
-            throw new CustomApiException("새 비밀번호가 일치하지 않습니다.");
-        }
         if(!bCryptPasswordEncoder.matches(updateDto.getNowPasswordCheck(), user.getPassword())) {
             throw new CustomApiException("현재 비밀번호가 일치하지 않습니다.");
         }
+
+        if(bCryptPasswordEncoder.matches(updateDto.getNewPassword(), user.getPassword())) {
+            throw new CustomApiException("현재 비밀번호와 동일한 비밀번호입니다.");
+        }
+
+        if(!updateDto.getNewPassword().equals(updateDto.getNewPasswordCheck())) {
+            throw new CustomApiException("새 비밀번호가 일치하지 않습니다.");
+        }
+
             String rawPassword = updateDto.getNewPassword();
             String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 

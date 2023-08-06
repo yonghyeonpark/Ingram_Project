@@ -105,7 +105,7 @@ function getStoryItem(image) {
 		</div>
 
 		<div class="sl__item__input">
-			<input type="text" placeholder="댓글 달기..." id="storyCommentInput-${image.id}" />
+			<input type="text" placeholder="댓글 작성..." id="storyCommentInput-${image.id}" />
 			<button type="button" onClick="addComment(${image.id})">게시</button>
 		</div>
 

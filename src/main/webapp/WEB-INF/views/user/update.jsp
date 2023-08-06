@@ -27,14 +27,14 @@
 					<div class="item__title">이름</div>
 					<div class="item__input">
 						<input type="text" name="name" placeholder="이름"
-							value="${principal.user.name}" />
+							value="${principal.user.name}" required ="required" />
 					</div>
 				</div>
 				<div class="content-item__03">
 					<div class="item__title">유저네임</div>
 					<div class="item__input">
 						<input type="text" name="username" placeholder="유저네임"
-							value="${principal.user.username}" />
+							value="${principal.user.username}" required ="required" />
 					</div>
 				</div>
 				<div class="content-item__05">
@@ -61,7 +61,7 @@
 					<div class="item__title">이메일</div>
 					<div class="item__input">
 						<input type="text" name="email" placeholder="이메일"
-							value="${principal.user.email}" readonly="readonly" />
+							value="${principal.user.email}" required ="required" />
 					</div>
 				</div>
 				<div class="content-item__09">
