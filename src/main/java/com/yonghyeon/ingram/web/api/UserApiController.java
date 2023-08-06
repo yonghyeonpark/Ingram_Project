@@ -49,15 +49,13 @@ public class UserApiController {
     public CMResponseDto<?> update(
             @PathVariable Long id,
             @Valid UserUpdateDto updateDto,
-            BindingResult bindingResult, // 꼭 @Valid 다음 파라미터에 와야함
-            @AuthenticationPrincipal PrincipalDetails principalDetails /*, Model model*/) {
-        //model.addAttribute("principal", principalDetails.getUser());
+            BindingResult bindingResult,
+            @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
             User user = userService.userUpdate(id, updateDto);
             principalDetails.setUser(user);
 
             // 응답시에 user 엔터티의 모든 getter 함수가 호출되고 JSON으로 파싱하여 응답
-            // 따라서 user.getImages도 호출하는데 여기서 다시 image.getUser 다시 user.getImages 이런식으로 무한 반복됨
             return new CMResponseDto<>(1L, "회원정보 변경 완료", user);
     }
 
@@ -75,7 +73,6 @@ public class UserApiController {
     }
 
     @PutMapping("/api/user/{principalId}/profileImageUrl")
-    // caption 필요없이 사진만 받으면 되기 때문에 dto를 받지 않음 / profile.jsp의 폼태그에 있는 input name을 정확히 매칭 시켜야 함
     public ResponseEntity<?> profileImageUpdate(
             @PathVariable Long principalId,
             MultipartFile profileImageFile,
@@ -83,7 +80,7 @@ public class UserApiController {
 
         User user = userService.userProfileUpdate(principalId, profileImageFile);
 
-        principalDetails.setUser(user);// 세션 변경
+        principalDetails.setUser(user); // 세션 변경
 
         return new ResponseEntity<>(new CMResponseDto<>(1L,"프로필 사진 변경 완료",null), HttpStatus.OK);
     }

@@ -38,7 +38,7 @@
   margin-bottom: 20px;
 }
 
-/* 유저이미지, 유저아이디*/
+/* 회원이미지, 회원아이디*/
 .setting-container .setting__content .content-item__01 .item__img {
   flex: 2;
   text-align: right;

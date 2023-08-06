@@ -28,7 +28,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     }
 
     // 권한을 가져옴
-    // 여러개일 수 있으므로 컬렉션
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

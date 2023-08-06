@@ -29,16 +29,16 @@ public class OAuth2DetailsService extends DefaultOAuth2UserService {
 
         Map<String, Object> userInfo = oAuth2User.getAttributes();
 
-        // 구글을 통해 로그인하기 때문에 username은 중요하지 않지만 중복을 피하기 위해 userInfo에서 sub를 가져와 사용
-        String username = "google_"+(String)userInfo.get("sub");// get(key값), 다운 캐스팅
-        // pw를 사용해서 로그인하는 것이 아니기 때문에 아무거나 해도 상관은 없지만 그냥 아무도 모르는 값을 넣는 것이 안전
+        // 중복을 피하기 위해 userInfo에서 sub를 가져와 사용
+        String username = "google_"+(String)userInfo.get("sub"); // get(key값), 다운 캐스팅
+
         String password = new BCryptPasswordEncoder().encode(UUID.randomUUID().toString());
         String email = (String)userInfo.get("email");
         String name = (String)userInfo.get("name");
 
         User findUser = userRepository.findByEmail(email);
 
-        // 이미 가입한 유저 구별하기
+        // 이미 가입한 회원 구별하기
         if(findUser == null) {
 
             User user = User.builder()

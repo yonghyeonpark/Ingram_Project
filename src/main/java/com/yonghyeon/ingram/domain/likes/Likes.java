@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-// Maria DB와 MySql에는 Like가 키워드라서 테이블 생성이 안됨
+// Maria DB와 MySql에는 Like가 키워드이므로 Likes로 설정
 @NoArgsConstructor
 @Getter
 @Table(
@@ -33,15 +33,9 @@ public class Likes {
     @ManyToOne
     private User user;
 
-    //@JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     private Image image;
 
     private LocalDateTime createDate;
 
-    // 네이티브쿼리를 사용하면 무의미
-    @PrePersist
-    public void createDate() {
-        this.createDate = LocalDateTime.now();
-    }
 }

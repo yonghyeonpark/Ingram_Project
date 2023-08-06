@@ -35,7 +35,6 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    // 에러가 발생하면 bindingResult(getFieldErrors)에 담음
     public String signup(@Valid SignupRequestDto requestDto, BindingResult bindingResult) {
 
             authService.join(requestDto);

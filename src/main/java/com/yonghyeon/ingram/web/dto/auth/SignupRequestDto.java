@@ -20,12 +20,4 @@ public class SignupRequestDto {
     @NotBlank
     private String name;
 
-    @Builder
-    public SignupRequestDto(String username, String password, String email, String name) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-    }
-
 }

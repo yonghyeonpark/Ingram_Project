@@ -5,10 +5,10 @@
 
 <!--프로필 섹션-->
 <section class="profile">
-	<!--유저정보 컨테이너-->
+	<!--회원정보 컨테이너-->
 	<div class="profileContainer">
 
-		<!--유저이미지-->
+		<!--회원이미지-->
 		<div class="profile-left">
 			<div class="profile-img-wrap story-border"
 				onclick="popup('.modal-image')">
@@ -21,9 +21,9 @@
 					onerror="this.src='/images/person.jpg'" id="userProfileImage" />
 			</div>
 		</div>
-		<!--유저이미지end-->
+		<!--회원이미지end-->
 
-		<!--유저정보 및 게시물 등록, 팔로우하기-->
+		<!--회원정보 및 게시물 등록, 팔로우하기-->
 		<div class="profile-right">
 			<div class="name-group">
 				<h2>${dto.user.name}</h2>
@@ -68,7 +68,7 @@
 				<h4>${dto.user.website}</h4>
 			</div>
 		</div>
-		<!--유저정보 및 게시물 등록, 팔로우하기-->
+		<!--회원정보 및 게시물 등록, 팔로우하기-->
 
 	</div>
 </section>
@@ -84,12 +84,11 @@
 
 				<!--아이템들-->
 				<!--JSTL 문법-->
-				<c:forEach var="image" items="${dto.user.images}"> <!--EL표현식에서 변수명을 적으면 get함수가 자동 호출됨-->
+				<c:forEach var="image" items="${dto.user.images}">
 					<div class="img-box">
 						<a href=""> <img src="/upload/${image.postImageUrl}"/>
 						</a>
 						<div class="comment">
-							<!--따라서 ImageService와 마찬가지로 UserService에서 likeCount에 값을 집어 넣은 후에 사용-->
 							<a href="#" class=""> <i class="fas fa-heart"></i><span>${image.likeCount}</span>
 							</a>
 						</div>
@@ -126,7 +125,6 @@
 <!--프로필사진 바꾸기 모달-->
 <div class="modal-image" onclick="modalImage()">
 	<div class="modal">
-		<!--페이지의 주인이 아닐 땐 프로필변경 화면 대신 프로필 사진 나오게 설정해보기-->
 		<c:choose>
 			<c:when test="${dto.user.id == principal.user.id}">
 				<p>프로필 사진 바꾸기</p>

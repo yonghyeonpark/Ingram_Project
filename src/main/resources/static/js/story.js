@@ -1,18 +1,18 @@
 /**
-	2. 스토리 페이지
+	   [스토리 페이지]
 	(1) 스토리 로드하기
-	(2) 스토리 스크롤 페이징하기
-	(3) 좋아요, 안좋아요
+	(2) 스토리 스크롤 페이징 처리
+	(3-1) 좋아요, 좋아요 취소
+    (3-2) 북마크, 북마크 취소
 	(4) 댓글쓰기
 	(5) 댓글삭제
  */
 
 // 현재 로그인한 사용자의 id
 let principalId = $("#principalId").val();
-console.log("현재 로그인 유저 :", principalId);
+console.log("현재 로그인 회원 :", principalId);
 
 // (1) 스토리 로드하기
-
 let page = 1;
 
 function storyLoad() {
@@ -114,7 +114,7 @@ function getStoryItem(image) {
 	return item;
 }
 
-// (2) 스토리 스크롤 페이징하기
+// (2) 스토리 스크롤 페이징 처리
 $(window).scroll(() => {
 
 	let check = $(window).scrollTop() - ($(document).height() - $(window).height());
@@ -129,7 +129,7 @@ $(window).scroll(() => {
 
 // (3-1) 좋아요, 좋아요 취소
 function toggleLike(imageId) {
-	let likeIcon = $(`#storyLikeIcon-${imageId}`); // #을 사용할 땐 쌍따옴표(")가 아닌 백틱(`)으로 처리
+	let likeIcon = $(`#storyLikeIcon-${imageId}`);
 	if (likeIcon.hasClass("far")) { // 좋아요 누르기 전
 
 		$.ajax({
@@ -157,7 +157,7 @@ function toggleLike(imageId) {
 			dataType:"json"
 		}).done(res=>{
 
-			let likeCountStr = $(`#storyLikeCount-${imageId}`).text(); // 해당 id에 접근하여 내부의 text를 가져옴
+			let likeCountStr = $(`#storyLikeCount-${imageId}`).text();
 			let likeCount = Number(likeCountStr) - 1;
 			$(`#storyLikeCount-${imageId}`).text(likeCount);
 
@@ -173,8 +173,8 @@ function toggleLike(imageId) {
 
 // (3-2) 북마크, 북마크 취소
 function toggleBookmark(imageId) {
-	let bookmarkIcon = $(`#storyBookmarkIcon-${imageId}`); // #을 사용할 땐 쌍따옴표(")가 아닌 백틱(`)으로 처리
-	if (bookmarkIcon.hasClass("far")) { // 좋아요 누르기 전
+	let bookmarkIcon = $(`#storyBookmarkIcon-${imageId}`);
+	if (bookmarkIcon.hasClass("far")) {
 
 		$.ajax({
 			type:"post",
@@ -245,14 +245,14 @@ function addComment(imageId) {
 
 		  </div>
 		`;
-		commentList.prepend(content); // append는 뒤에 추가
+		commentList.prepend(content); // 최신댓글이 위로 오도록 설정(append는 뒤에 추가)
 
 	}).fail(error=>{
 		console.log("에러", error.responseJSON.data.content);
 		alert(error.responseJSON.data.content);
 	});
 
-	commentInput.val(""); // input 필드를 비워줌(에러가 나도 비울거기 때문에 따로 빼놓음)
+	commentInput.val(""); // input 필드를 비워줌(에러가 발생해도 실행해야 하기 때문에 밖으로 빼줌)
 }
 
 // (5) 댓글 삭제

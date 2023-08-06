@@ -28,7 +28,7 @@ public class Image {
     }
 
     private String caption;
-    private String postImageUrl; // 사진을 전송 받아서 그 사진을 서버에 특정 폴더에 저장 - DB에 그 저장된 경로를 insert
+    private String postImageUrl; // 사진을 전송 받아서 그 사진을 서버의 특정 폴더에 저장 => DB에 저장된 경로를 insert
 
     @JsonIgnoreProperties({"images"})
     @ManyToOne(fetch = FetchType.EAGER)
@@ -49,12 +49,11 @@ public class Image {
     @OneToMany(mappedBy = "image")
     private List<Bookmark> bookmarks;
 
-    // javax.persistence => DB에 컬럼 생성 제한
+    // DB에 컬럼 생성 제한
     @Transient
     private boolean likeState;
     @Transient
     private int likeCount;
-
     @Transient
     private boolean bookmarkState;
 

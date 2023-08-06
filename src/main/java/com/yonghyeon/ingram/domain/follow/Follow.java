@@ -33,10 +33,4 @@ public class Follow {
 
     private LocalDateTime createDate;
 
-    // 네이티브쿼리를 사용하면 무의미
-    @PrePersist // DB에 값이 insert 되기 직전에 실행
-    public void createDate() {
-        this.createDate = LocalDateTime.now();
-    }
-
 }

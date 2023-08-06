@@ -21,22 +21,20 @@ public class CommentService {
     public Comment commentWrite(String content, Long imageId, Long principalId) {
 
         // 가짜 객체 생성
-        // 객체를 만들 때 id값만 담아서 insert 할 수 있다.
-        // return 시에 image 객체와 user 객체는 id 값만 가지고 있는 빈 객체를 리턴 받는다.(가짜 객체를 생성했기 때문에)
-        // 진짜 객체를 가져오기 위해서는 image와 user의 repository를 이용해야함
+        // 객체를 만들 때 id값만 담아서 insert
         Image image = new Image();
         image.setId(imageId);
 
         /*User user = new User();
         user.setId(principalId);*/
 
-        User user = userRepository.findById(principalId)
+        User userEntity = userRepository.findById(principalId)
                 .orElseThrow(() -> new CustomApiException("존재하지 않는 사용자 입니다."));
 
         Comment comment = Comment.builder()
                 .content(content)
                 .image(image)
-                .user(user)
+                .user(userEntity)
                 .build();
 
         return commentRepository.save(comment);

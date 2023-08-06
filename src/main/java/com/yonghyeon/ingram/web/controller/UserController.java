@@ -28,9 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}/update")
-    public String update(@PathVariable Long id/*, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model*/) {
-
-        //model.addAttribute("principal", principalDetails.getUser());
+    public String update(@PathVariable Long id) {
 
         return "user/update";
     }

@@ -8,7 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class ImageUploadDto {
 
-    private MultipartFile file; // MultipartFile은 @NotBlank 사용 불가능, @Valid/BindingResult로 처리할 수 없음 => 별도로 만들어야 함
+    // MultipartFile은 @NotBlank 사용 불가능 => 별도 처리
+    private MultipartFile file;
     private String caption;
 
     public Image toEntity(String postImageUrl, User user) {

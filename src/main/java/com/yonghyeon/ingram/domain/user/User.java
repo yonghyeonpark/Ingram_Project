@@ -12,11 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity // DB에 테이블 생성
+@Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 번호 증가 전략이 DB를 따라감
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 100, unique = true, nullable = false)
@@ -32,11 +32,14 @@ public class User {
     private String name;
 
     private String phonenum;
+
     private String gender;
 
     private String website;
-    private String bio; // 자기 소개
-    private String profileImageUrl; // 프사
+
+    private String bio;
+
+    private String profileImageUrl;
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
@@ -46,16 +49,11 @@ public class User {
 
     private LocalDateTime createDate;
 
-    // 양방향 매핑
-    // 연관관계의 주인이 아니므로 테이블에 칼럼 생성 제한
-    // User를 select할 때 해당 User id로 등록된 image들을 다 가져옴(fetch = FetchType.EAGER일 때)
-    // @OneToMany는 기본 설정이 fetch = FetchType.LAZY => User를 SELECT할 때 User id에 해당하는 image들을 가져오지 않고 대신 .getImages()함수가 호출될 때 가져옴
-    // FetchType.EAGER는 User를 SELECT할 때 User id에 해당하는 image들을 전부 JOIN해서 가져옴
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"}) // Image의 user필드는 무시하고 파싱(무한 참조 방지)
     private List<Image> images;
 
-    @PrePersist // DB에 값이 insert 되기 직전에 실행
+    @PrePersist
     public void createDate() {
         this.createDate = LocalDateTime.now();
     }

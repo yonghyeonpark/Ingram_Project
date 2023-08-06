@@ -59,9 +59,9 @@ public class UserService {
 
     @Transactional
     public User userUpdate(Long id, UserUpdateDto updateDto) {
-        // 영속화
+
         User user = userRepository.findById(id)
-            .orElseThrow(() -> new CustomValidationApiException("존재하지 않는 id입니다.")); // get() - 무조건 찾았음, orElseThrow - 못찾아서 익셉션 발동
+            .orElseThrow(() -> new CustomValidationApiException("존재하지 않는 id입니다."));
 
         if(userRepository.findByUsername(updateDto.getUsername())!=null & !user.getUsername().equals(updateDto.getUsername())) {
             throw new CustomApiException("이미 존재하는 유저네임 입니다.");
@@ -71,11 +71,9 @@ public class UserService {
             throw new CustomApiException("이미 사용중인 이메일 입니다.");
         }
 
-        // 영속화된 오브젝트를 수정 -> 더티체킹(업데이트 완료)
         user.update(updateDto.getName(), updateDto.getUsername(), updateDto.getEmail(), updateDto.getPhonenum(), updateDto.getGender(), updateDto.getWebsite(), updateDto.getBio());
 
-        return user;
-        // 더티체킹이 일어나서 업데이트가 완료됨
+        return user; // 더티체킹(업데이트 완료)
     }
 
     @Transactional
@@ -108,14 +106,12 @@ public class UserService {
     @Transactional
     public User userProfileUpdate(Long principalId, MultipartFile profileImageFile) {
 
-        // 동일한 파일명이 이미 들어와 있는 파일을 덮는 것을 방지하기위해 UUID 사용(유일성 보장)
         UUID uuid = UUID.randomUUID();
         // 극악의 확률로 UUID가 같을 것을 대비해 파일명과 조합
-        String filename = uuid + "_" + profileImageFile.getOriginalFilename();// 실제 파일명
+        String filename = uuid + "_" + profileImageFile.getOriginalFilename();
 
         Path imageFilePath = Paths.get(uploadFolder + filename);
 
-        // 통신(외부에서 data 받아옴), I/O(하드디스크에 write, read) => 예외 발생 가능(읽으려는 파일이 존재하지 않을 때) / 컴파일에러가 아닌 런타임에러 => 따라서 예외를 잡아줘야 함
         try {
             Files.write(imageFilePath, profileImageFile.getBytes()); // 파일경로, 실제파일
         } catch (Exception e) {

@@ -14,12 +14,4 @@ public class FollowDto {
     private Long followState;
     private Long mirrorState;
 
-    @Builder
-    public FollowDto(Long userId, String username, String profileImageUrl, Long followState, Long mirrorState) {
-        this.userId = userId;
-        this.username = username;
-        this.profileImageUrl = profileImageUrl;
-        this.followState = followState;
-        this.mirrorState = mirrorState;
-    }
 }

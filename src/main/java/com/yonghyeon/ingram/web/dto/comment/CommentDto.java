@@ -14,6 +14,4 @@ public class CommentDto {
 
     @NotBlank
     private String content;
-
-    // toEntity 필요없음.
 }

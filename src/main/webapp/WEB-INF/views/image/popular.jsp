@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
-<!--인기 게시글-->
+<!--인기 게시물-->
 <main class="popular">
 	<div class="exploreContainer">
 
-		<!--인기게시글 갤러리(Grid배치)-->
+		<!--인기게시물 갤러리-->
 		<div class="popular-gallery">
 
 			<c:forEach var="image" items="${images}">
