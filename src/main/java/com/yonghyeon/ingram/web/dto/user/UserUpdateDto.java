@@ -1,5 +1,6 @@
 package com.yonghyeon.ingram.web.dto.user;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,14 @@ public class UserUpdateDto {
     private String phonenum;
     private String gender;
 
+    @Builder
+    public UserUpdateDto(String name, String username, String email, String website, String bio, String phonenum, String gender) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.website = website;
+        this.bio = bio;
+        this.phonenum = phonenum;
+        this.gender = gender;
+    }
 }

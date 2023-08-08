@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // 공통처리
-@Component //
+@Component
 @Aspect
 public class ValidationAdvice {
 
