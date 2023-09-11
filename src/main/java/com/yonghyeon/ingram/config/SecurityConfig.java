@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/") // 5. 로그인이 정상적으로 됐을 때의 경로 설정
                 .and()
                 .oauth2Login() // form 로그인에 더하여 oauth2 로그인까지 가능하도록 설정
-                .userInfoEndpoint() // 인증 코드를 받지 않고(코드받고 엑세스 토큰을 받는 건 시큐리티가 알아서 처리) 바로 최종응답을 회원정보로 받음
+                .userInfoEndpoint() // 인증 코드를 받지 않고(코드받고 엑세스 토큰을 받는 건 시큐리티가 알아서 처리) 바로 최종응답(회원정보)을  받음
                 .userService(oAuth2DetailsService);
 
         return http.build();

@@ -27,7 +27,7 @@ public class ImageController {
         return "image/story";
     }
 
-    @GetMapping({ "/image/popular"})
+    @GetMapping( "/image/popular")
     public String popular(Model model) {
 
         List<Image> images = imageService.popularImages();
@@ -36,7 +36,7 @@ public class ImageController {
         return "image/popular";
     }
 
-    @GetMapping({ "/image/bookmark"})
+    @GetMapping( "/image/bookmark")
     public String bookmark(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
 
         List<Image> bookmarkImages = bookmarkService.bookmarkImages(principalDetails.getUser().getId());
@@ -45,12 +45,12 @@ public class ImageController {
         return "image/bookmark";
     }
 
-    @GetMapping({ "/image/upload"})
+    @GetMapping( "/image/upload")
     public String upload() {
         return "image/upload";
     }
 
-    @PostMapping({"/image"})
+    @PostMapping("/image")
     public String imageUpload(ImageUploadDto imageUploadDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         // 공통처리 불가능

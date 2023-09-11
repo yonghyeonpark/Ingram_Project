@@ -22,7 +22,6 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final JPAQueryFactory jpaQueryFactory;
-    private final EntityManager em;
 
     @Transactional(readOnly = true)
     public List<FollowDto> followingList(Long principalId, Long pageUserId) {
@@ -46,7 +45,6 @@ public class FollowService {
         } catch (Exception e) {
             throw new CustomApiException("이미 팔로우중입니다.");
         }
-
     }
 
     @Transactional

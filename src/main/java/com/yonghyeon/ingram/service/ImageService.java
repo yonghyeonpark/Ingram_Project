@@ -36,7 +36,7 @@ public class ImageService {
         try {
             Files.write(imageFilePath, imageUploadDto.getFile().getBytes());
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
 
         Image image = imageUploadDto.toEntity(filename, principalDetails.getUser());

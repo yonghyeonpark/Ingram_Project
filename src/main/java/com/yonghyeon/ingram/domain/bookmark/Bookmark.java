@@ -35,4 +35,13 @@ public class Bookmark {
 
     private LocalDateTime createDate;
 
+    @PrePersist
+    public void createDate() {
+        this.createDate = LocalDateTime.now();
+    }
+
+    public Bookmark(User user, Image image) {
+        this.user = user;
+        this.image = image;
+    }
 }

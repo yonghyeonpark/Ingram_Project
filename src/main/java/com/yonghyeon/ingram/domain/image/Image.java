@@ -30,11 +30,23 @@ public class Image {
     private String caption;
     private String postImageUrl; // 사진을 전송 받아서 그 사진을 서버의 특정 폴더에 저장 => DB에 저장된 경로를 insert
 
+    private LocalDateTime createDate;
+
+    @PrePersist
+    public void createDate() {
+        this.createDate = LocalDateTime.now();
+    }
+
+    @Builder
+    public Image(String caption, String postImageUrl, User user) {
+        this.caption = caption;
+        this.postImageUrl = postImageUrl;
+        this.user = user;
+    }
+
     @JsonIgnoreProperties({"images"})
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
-
-    private LocalDateTime createDate;
 
     @JsonIgnoreProperties({"image"})
     @OneToMany(mappedBy = "image")
@@ -67,18 +79,6 @@ public class Image {
 
     public void setBookmarkState(boolean bookmarkState) {
         this.bookmarkState = bookmarkState;
-    }
-
-    @PrePersist
-    public void createDate() {
-        this.createDate = LocalDateTime.now();
-    }
-
-    @Builder
-    public Image(String caption, String postImageUrl, User user) {
-        this.caption = caption;
-        this.postImageUrl = postImageUrl;
-        this.user = user;
     }
 
 }

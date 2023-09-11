@@ -33,4 +33,13 @@ public class Follow {
 
     private LocalDateTime createDate;
 
+    @PrePersist
+    public void createDate() {
+        this.createDate = LocalDateTime.now();
+    }
+
+    public Follow(User fromUser, User toUser) {
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+    }
 }

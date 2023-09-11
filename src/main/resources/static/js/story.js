@@ -14,11 +14,12 @@ console.log("현재 로그인 회원 :", principalId);
 
 // (1) 스토리 로드하기
 let page = 1;
+let size = 2;
 
 function storyLoad() {
 
 	$.ajax({
-		url:`/api/image?page=${page}&size=2`,
+		url:`/api/image?page=${page}&size=${size}`,
 		dataType:"json"
 	}).done(res=>{
 		console.log(res);

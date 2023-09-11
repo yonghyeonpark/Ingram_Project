@@ -6,13 +6,17 @@ import java.util.List;
 
 public interface FollowRepositoryCustom {
 
-    public Long mFollowState(Long principalId, Long pageUserId);
+    void mFollow(Long fromUserId, Long toUserId);
 
-    public Long mFollowingCount(Long pageUserId);
+    void mUnFollow(Long fromUserId, Long toUserId);
 
-    public Long mFollowerCount(Long pageUserId);
+    Long mFollowState(Long principalId, Long pageUserId);
 
-    public List<FollowDto> mFollowingList(Long principalId, Long pageUserId);
+    Long mFollowingCount(Long pageUserId);
 
-    public List<FollowDto> mFollowerList(Long principalId, Long pageUserId);
+    Long mFollowerCount(Long pageUserId);
+
+    List<FollowDto> mFollowingList(Long principalId, Long pageUserId);
+
+    List<FollowDto> mFollowerList(Long principalId, Long pageUserId);
 }

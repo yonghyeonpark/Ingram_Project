@@ -38,4 +38,13 @@ public class Likes {
 
     private LocalDateTime createDate;
 
+    @PrePersist
+    public void createDate() {
+        this.createDate = LocalDateTime.now();
+    }
+
+    public Likes(User user, Image image) {
+        this.user = user;
+        this.image = image;
+    }
 }
